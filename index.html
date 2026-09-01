@@ -1,0 +1,150 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prefeitura de Nova Olinda</title>
+  <style>
+    /* Reset básico para o index */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* Remove espaçamentos e barras dos iFrames */
+    iframe {
+      width: 100%;
+      border: none;
+      display: block;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .grid-noticias { 
+      display: grid; 
+      gap: 15px; 
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+      max-width: 1350px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .card-noticia { 
+      border: 1px solid #ddd; 
+      padding: 15px; 
+      border-radius: 8px; 
+      background: #fff; 
+    }
+
+    .categoria-tag { 
+      font-size: 0.8em; 
+      color: #555; 
+      text-transform: uppercase; 
+      font-weight: bold; 
+    }
+
+    .iframe-container-centered {
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      width: 100%; 
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Local onde o cabeçalho entra -->
+ <div id="meu-cabecalho"></div> 
+
+  <main>
+    <iframe src="slideTopo.html" style="height:160px;" scrolling="no"></iframe>
+    <iframe src="slidedestaques.html" style="height:560px;" scrolling="no"></iframe>
+
+    <!-- Onde as notícias serão inseridas -->
+    <div id="container-noticias" class="grid-noticias"></div>
+
+    <!-- Unidades de Atendimento (Altura reduzida de 500px para 230px para colapsar o espaço vago) -->
+    <iframe src="unidades_de_atendimento.html" style="height: 230px;" scrolling="no" class="auto-height"></iframe>
+
+    <!-- LRF Fiscal (Altura reduzida de 400px para 250px) -->
+    <iframe src="lrf_fiscal.html" style="height: 250px;" scrolling="no" class="auto-height"></iframe>
+    
+    <div class="iframe-container-centered">
+      <iframe src="categorias.html" style="max-width: 1200px; height: 400px;" scrolling="no"></iframe>
+    </div>
+
+    <div class="iframe-container-centered">
+      <iframe src="pdf_licitacao/Portal-de-Licitacoes-_-TCE-Ceara-27-07-2026.pdf" style="max-width: 1200px; height: 1200px;"></iframe>
+    </div>
+
+    <!-- Rodapé -->
+    <iframe src="rodape.html" style="height:400px;" scrolling="no"></iframe>
+  </main>
+
+  <!-- Script para carregar o cabeçalho -->
+  <script>
+    fetch('cabecalho.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('meu-cabecalho').innerHTML = data;
+      })
+      .catch(err => console.error('Erro ao carregar cabeçalho:', err));
+  </script>
+
+  <!-- Script para carregar as notícias -->
+  <script>
+    let todasAsNoticias = [];
+
+    fetch('noticias.json')
+      .then(response => response.json())
+      .then(dados => {
+        todasAsNoticias = dados;
+        renderizarNoticias(todasAsNoticias);
+      })
+      .catch(err => console.error('Erro ao carregar notícias:', err));
+
+    function renderizarNoticias(lista) {
+      const container = document.getElementById('container-noticias');
+      container.innerHTML = '';
+
+      lista.forEach(item => {
+        container.innerHTML += `
+          <div class="card-noticia">
+            <span class="categoria-tag">${item.categoriaNome}</span>
+            <h3>${item.titulo}</h3>
+            <small>${item.data}</small>
+            <p>${item.resumo}</p>
+          </div>
+        `;
+      });
+    }
+  </script>
+
+  <!-- Redimensionador automático opcional de IFrames locais -->
+  <script>
+    window.addEventListener('load', () => {
+      document.querySelectorAll('iframe.auto-height').forEach(iframe => {
+        try {
+          const body = iframe.contentWindow.document.body;
+          const html = iframe.contentWindow.document.documentElement;
+          const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+          if (height > 0) {
+            iframe.style.height = height + 'px';
+          }
+        } catch(e) {
+          // Mantém a altura CSS padrão em caso de bloqueio do navegador
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

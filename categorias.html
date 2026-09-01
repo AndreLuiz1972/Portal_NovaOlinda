@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mural de Notícias</title>
+  <style>
+    /* Estilos Gerais */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: #f4f5f7;
+      padding: 20px;
+    }
+
+    /* Grid Container */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Card de Notícia */
+    .news-card {
+      background-color: #ffffff;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Tag de Categoria (Banner Azul) */
+    .category-tag {
+      background-color: #1a3b8b;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 6px 10px;
+      text-transform: uppercase;
+    }
+
+    /* Container da Imagem */
+    .card-image-container {
+      width: 100%;
+      height: 180px;
+      background-color: #e0e0e0;
+      overflow: hidden;
+    }
+
+    .card-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Conteúdo do Card */
+    .card-content {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      color: #333333;
+      margin-bottom: 8px;
+      line-height: 1.3;
+      font-weight: bold;
+    }
+
+    .card-date {
+      font-size: 0.75rem;
+      color: #888888;
+      margin-bottom: 12px;
+    }
+
+    .card-link {
+      font-size: 0.85rem;
+      color: #1a3b8b;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: auto;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="news-grid" id="newsGrid"></div>
+
+  <script>
+    // 1. Dados das Notícias (Altere os campos 'imagem' e 'link' conforme necessário)
+    const noticias = [
+      {
+        categoria: "CATEGORIA: Educação",
+        imagem: "https://via.placeholder.com/400x250", // COLOQUE O LINK DA SUA IMAGEM AQUI
+        titulo: "Prefeitura de Nova Olinda convida a população para a reinauguração da Escola Padre Cristiano Coelho",
+        data: "agosto 12, 2026 - 1:21 pm",
+        link: "#" // COLOQUE O LINK DE DESTINO AQUI
+      },
+      {
+        categoria: "CATEGORIA: Saúde",
+        imagem: "https://via.placeholder.com/400x250", 
+        titulo: "CONVITE INAUGURAÇÃO Hospital e Areninha",
+        data: "junho 19, 2026",
+        link: "#" 
+      },
+      {
+        categoria: "CATEGORIA: Assistência Social",
+        imagem: "https://via.placeholder.com/400x250", 
+        titulo: "Nova Olinda Conectada e Segura: Conheça a Nova Lei do \"ECA Digital\"",
+        data: "março 18, 2026 6:49 pm",
+        link: "#" 
+      },
+      {
+        categoria: "CATEGORIA: Administração",
+        imagem: "https://via.placeholder.com/400x250", 
+        titulo: "Solenidade de reinauguração da Escola Professora Ana Ferreira do Nascimento.",
+        data: "agosto 4, 2026 - 3:34 am",
+        link: "#" 
+      }
+    ];
+
+    // 2. Função para Renderizar os Cards dinamicamente no HTML
+    function renderizarNoticias() {
+      const container = document.getElementById('newsGrid');
+      
+      noticias.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'news-card';
+
+        card.innerHTML = `
+          <div class="category-tag">${item.categoria}</div>
+          <div class="card-image-container">
+            <img src="${item.imagem}" alt="${item.titulo}">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">${item.titulo}</h3>
+            <span class="card-date">${item.data}</span>
+            <a href="${item.link}" class="card-link">Leia Mais</a>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Inicializa a renderização quando a página carrega
+    document.addEventListener('DOMContentLoaded', renderizarNoticias);
+  </script>
+</body>
+</html>

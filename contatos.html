@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefones de Contato</title>
+    <style>
+        :root {
+            --primary-color: #21139c;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Container do Cabeçalho em Largura Total */
+        #meu-cabecalho {
+            width: 100%;
+            position: relative;
+            z-index: 1000; /* Garante que os submenus do cabeçalho fiquem por cima do conteúdo */
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 20px 15px; /* Margem superior e inferior para afastar do cabeçalho */
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            padding: 20px 15px;
+            border-bottom: 2px solid var(--bg-color);
+        }
+
+        .main-phone {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .main-phone a {
+            color: var(--accent-color);
+            text-decoration: none;
+            display: inline-block;
+            padding: 5px 10px;
+        }
+
+        .ramais-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .ramal-item {
+            font-size: 0.85rem;
+            padding: 5px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-item a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-item:last-child a {
+            border-bottom: none;
+        }
+
+        .contact-item a:hover, 
+        .contact-item a:active {
+            background-color: #f0f8ff;
+        }
+
+        .dept-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #0e19ae;
+            padding-right: 10px;
+        }
+
+        .dept-phone {
+            font-family: monospace;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 480px) {
+            .contact-item a {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 14px 15px;
+            }
+            .dept-phone {
+                margin-top: 6px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Local onde o cabeçalho entra em LARGURA TOTAL -->
+    <div id="meu-cabecalho"></div>
+
+    <div class="container">
+      <header>
+        <h1>Telefones de Contato</h1>
+      </header>
+      <div class="section">
+        <div class="main-phone">📞 Prefeitura: 
+          <a href="tel:8820181485">(88) 2018-1485</a>
+          <p style="color: red; font-size: 0.9rem; margin-top: 8px;">Disque o número acima e digite a opção referente à secretaria abaixo:</p>
+        </div>
+        <div class="ramais-grid">
+          <div class="ramal-item">
+            <strong>Ramal:</strong> Licitação
+          </div>
+          <div class="ramal-item">
+            <strong>Ramal:</strong> Administração
+          </div>
+          <div class="ramal-item">
+            <strong>Ramal:</strong> Finanças
+          </div>
+          <div class="ramal-item">
+            <strong>Ramal:</strong> Gabinete
+          </div>
+          <div class="ramal-item">
+            <strong>Ramal:</strong> Tributos
+          </div>
+        </div>
+      </div>
+      <ul class="contact-list">
+        <li class="contact-item">
+          <a href="tel:8820181487">
+            <span class="dept-name">Secretaria de Educação</span> 
+            <span class="dept-phone">(88) 2018-1487</span>
+          </a>
+        </li>
+        <li class="contact-item">
+          <a href="tel:8820181493">
+            <span class="dept-name">Secretaria de Saúde</span> 
+            <span class="dept-phone">(88) 2018-1493</span>
+          </a>
+        </li>
+        <li class="contact-item">
+          <a href="tel:8820181484">
+            <span class="dept-name">Hospital</span> 
+            <span class="dept-phone">(88) 2018-1484</span>
+          </a>
+        </li>
+        <li class="contact-item">
+          <a href="tel:8820181494">
+            <span class="dept-name">Secretaria de Cultura, Esporte e Turismo</span> 
+            <span class="dept-phone">(88) 2018-1494</span>
+          </a>
+        </li>
+        <li class="contact-item">
+          <a href="tel:8820181496">
+            <span class="dept-name">Conselho Tutelar</span> 
+            <span class="dept-phone">(88) 2018-1496</span>
+          </a>
+        </li>
+        <li class="contact-item">
+          <a href="tel:8820181492">
+            <span class="dept-name">Assistência Social</span> 
+            <span class="dept-phone">(88) 2018-1492</span>
+          </a>
+        </li>
+        <li class="contact-item">
+          <a href="tel:8820181495">
+            <span class="dept-name">CREAS</span> 
+            <span class="dept-phone">(88) 2018-1495</span>
+          </a>
+        </li>
+        <li class="contact-item">
+          <a href="tel:8820181501">
+            <span class="dept-name">CRAS</span> 
+            <span class="dept-phone">(88) 2018-1501</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Script para carregar o cabeçalho dinamicamente -->
+    <script>
+      fetch('cabecalho.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('meu-cabecalho').innerHTML = data;
+        })
+        .catch(err => console.error('Erro ao carregar cabeçalho:', err));
+    </script>
+<iframe src="rodape.html" width="100%" height="400px" frameborder="0" padding="0"></iframe>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Título do Artigo - Nome do Site</title>
+  <style>
+    /* Reset básico e variáveis de estilo */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.7;
+      color: #222222;
+      background-color: #f8f9fa;
+    }
+
+    /* Container Principal do Artigo */
+    .artigo-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Cabeçalho do Artigo */
+    .artigo-header {
+      margin-bottom: 24px;
+    }
+
+    .artigo-categoria {
+      display: inline-block;
+      background-color: #e9ecef;
+      color: #0056b3;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .artigo-titulo {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #111111;
+      margin-bottom: 12px;
+    }
+
+    .artigo-metadados {
+      font-size: 0.9rem;
+      color: #6c757d;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 16px;
+    }
+
+    /* Banner Principal / Imagem de Capa */
+    .artigo-capa {
+      width: 100%;
+      height: auto;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 32px;
+    }
+
+    /* Corpo do Texto */
+    .artigo-conteudo {
+      font-size: 1.1rem;
+      color: #333333;
+    }
+
+    .artigo-conteudo p {
+      margin-bottom: 20px;
+    }
+
+    .artigo-conteudo h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111111;
+      margin: 32px 0 16px 0;
+    }
+
+    .artigo-conteudo blockquote {
+      border-left: 4px solid #0056b3;
+      padding-left: 16px;
+      margin: 24px 0;
+      font-style: italic;
+      color: #495057;
+      background-color: #f1f3f5;
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* Botão de Voltar */
+    .artigo-rodape {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #dee2e6;
+    }
+
+    .btn-voltar {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #0056b3;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .btn-voltar:hover {
+      color: #003d80;
+      text-decoration: underline;
+    }
+
+    /* Responsividade para telas menores */
+    @media (max-width: 600px) {
+      .artigo-titulo {
+        font-size: 1.75rem;
+      }
+      
+      .artigo-conteudo {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho Global (Injetado via JS/fetch) -->
+   <iframe src="/cabecalho.html" width="100%" height="300px"></iframe>
+  <div id="cabecalho-container"></div>
+
+  <!-- Conteúdo do Artigo -->
+  <main class="artigo-container">
+    <article>
+      
+      <header class="artigo-header">
+        <span class="artigo-categoria">Licitações</span>
+        <h1 class="artigo-titulo">Publicado o Edital para o Novo Processo Seletivo Público</h1>
+        <div class="artigo-metadados">
+          <span>Publicado em 26/08/2026</span>
+          <span>•</span>
+          <span>Tempo de leitura: 3 min</span>
+        </div>
+      </header>
+
+      <img 
+        src="https://picsum.photos/800/420" 
+        alt="Imagem ilustrativa da notícia" 
+        class="artigo-capa"
+      />
+
+      <div class="artigo-conteudo">
+        <p>
+          Foi publicado hoje no Diário Oficial o novo edital referente ao processo seletivo público. Esta iniciativa visa atender às demandas urgentes das secretarias municipais e garantir a transparência de todo o processo.
+        </p>
+
+        <h2>Principais Prazos e Informações</h2>
+
+        <p>
+          As inscrições estarão abertas a partir da próxima segunda-feira e poderão ser realizadas exclusivamente pela internet através do portal oficial. Não haverá cobrança de taxa para candidatos do cadastro único.
+        </p>
+
+        <blockquote>
+          "Garantir a acessibilidade e a lisura nos processos de seleção é prioridade fundamental para a administração."
+        </blockquote>
+
+        <p>
+          Para obter mais informações, acesse o documento completo em anexo ou entre em contato com a comissão organizadora através dos canais de atendimento indicados no rodapé do portal.
+        </p>
+      </div>
+
+      <footer class="artigo-rodape">
+        <a href="index.html" class="btn-voltar">← Voltar para as notícias</a>
+      </footer>
+
+    </article>
+  </main>
+
+  <!-- Script para carregar o cabeçalho reutilizável -->
+  <script>
+    fetch('cabecalho.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('cabecalho-container').innerHTML = data;
+      })
+      .catch(error => console.error('Erro ao carregar cabeçalho:', error));
+  </script>
+
+</body>
+</html>

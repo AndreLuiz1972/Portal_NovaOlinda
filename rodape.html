@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rodapé</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset Universal: Remove margem e preenchimento padrão de TODOS os elementos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Boa prática para incluir padding e borda no cálculo da largura/altura */
+        }
+
+        body {
+            /* A margin: 0; já está no reset universal, mas mantemos o font-family e o layout */
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* O main terá o padding necessário para o conteúdo */
+        main {
+            flex: 1; 
+            padding: 20px; 
+            text-align: center;
+        }
+
+        footer {
+            background-color: #210881; /* Um azul escuro para o fundo */
+            color: #ecf0f1; /* Cor da fonte branca acinzentada */
+            padding: 40px 20px; /* Mantido para dar respiro ao conteúdo do footer */
+            text-align: center;
+            margin-top: auto; /* Garante que o footer fique no final da página */
+            border-top: 5px solid #3498db; /* Uma borda superior azul clara */
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px; 
+        }
+
+        .footer-section {
+            flex: 1; 
+            min-width: 250px; 
+            margin-bottom: 20px; /* Adicionado de volta para espaçamento entre seções */
+        }
+
+        .footer-section h3 {
+            color: #3498db; 
+            margin-bottom: 15px; /* Adicionado de volta para espaçamento */
+            font-size: 1.3em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px; /* Adicionado de volta para espaçamento */
+            display: inline-block; 
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ecf0f1;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none; 
+        }
+
+        .footer-section a:hover {
+            color: #74b9ff; 
+            text-decoration: underline;
+        }
+
+        .footer-section .cnpj {
+            font-size: 0.85em;
+            margin-top: 5px; /* Adicionado de volta para espaçamento */
+            display: block; 
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-section {
+                text-align: center;
+                min-width: unset; 
+                width: 90%; 
+            }
+
+            .footer-section h3 {
+                border-bottom: none; 
+                padding-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+      <!--  <h1>Conteúdo Principal</h1>
+        <p>Aqui vai o conteúdo da sua página.</p> -->
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>PREFEITURA MUNICIPAL DE NOVA OLINDA</h3>
+                <p>CNPJ: <span class="cnpj">07.536.444/0001-95</span></p>
+                <p><a href="https://webmail.novaolinda.ce.gov.br/" target="_blank">Acessar Webmail</a></p>
+            </div>
+            <div class="footer-section contact">
+                <h3>CONTATO</h3>
+                <p>TELEFONE: (88) 2018-1485 </p>
+                <p>Outros Telefones de contato <a href="https://novaolinda.ce.gov.br/telefones.html/">Clique aqui</a></p>
+                <p>E-MAILS: <a href="mailto:administracao@novaolinda.ce.gov.br">administracao@novaolinda.ce.gov.br</a></p>
+                <a href="mailto:gabinete@novaolinda.ce.gov.br">gabinete@novaolinda.ce.gov.br</a>
+            </div>
+            <div class="footer-section address">
+                <h3>ENDEREÇO</h3>
+                <p>AVENIDA PERIMETRAL SUL, S/N CENTRO</p>
+                <p>NOVA OLINDA/CE</p>
+                <p>CEP: 63165-000</p>
+                <p><a href="https://novaolinda.ce.gov.br/mapa-do-site/" target="_blank">Mapa do Site</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

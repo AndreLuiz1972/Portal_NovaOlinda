@@ -1,0 +1,387 @@
+ <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prefeitura de Nova Olinda - CE</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f9; }
+
+    /* --- BARRA AZUL TOPO --- */
+    .top-bar {
+      background-color: #24126a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      font-size: 15px;
+    }
+
+    .top-bar .left-links { display: flex; gap: 25px; flex-basis: 33.33%; }
+
+    .datetime-center {
+      color: #fff;
+      font-weight: bold;
+      text-align: left;
+      flex-basis: 33.33%;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .top-bar .right-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-basis: 33.33%; 
+      justify-content: flex-end;
+    }
+
+    .top-bar a { color: #fff; text-decoration: none; transition: color 0.3s ease; }
+    .top-bar a:hover { color: #d1c800; }
+    .top-bar a i { margin-right: 3px; }
+    .top-bar .social-icons { display: flex; gap: 20px; }
+    .top-bar .social-icons a { color: #fff; font-size: 16px; }
+
+    /* --- BANNER --- */
+    .banner-container { position: relative; width: 100%; }
+    .banner-container img.banner { width: 100%; display: block; }
+    .banner-container img.logo-overlay {
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      width: 267px; 
+      height: auto;
+    }
+
+    /* --- MENU AMARELO STICKY --- */
+    nav {
+      background-color: #d1c800;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      position: -webkit-sticky;
+      position: sticky; 
+      top: 0;           
+      z-index: 9999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .home-icon { font-size: 22px; margin-right: 15px; color: white; text-decoration: none; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    nav ul li { position: relative; margin: 0 5px; }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      display: block;
+    }
+
+    nav ul li a:hover { background-color: rgba(255,255,255,0.2); border-radius: 5px; }
+
+    /* SUBMENU COM ROLAGEM (DESKTOP) */
+    nav ul li ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #aea723;
+      display: none;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 320px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      z-index: 10000;
+      max-height: 420px;
+      overflow-y: auto; 
+      border-radius: 0 0 5px 5px;
+    }
+
+    nav ul li:hover > ul { display: block; }
+    nav ul li ul li { margin: 0; width: 100%; }
+    nav ul li ul li a { padding: 10px; font-weight: normal; font-size: 14px; }
+    nav ul li ul li a:hover { background-color: rgba(0,0,0,0.15); }
+    nav ul li.dropdown > a::after { content: " ▼"; font-size: 11px; }
+
+    /* --- CAMPO DE PESQUISA --- */
+    .search-li { margin-left: 15px; }
+    .search-container-form {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 2px 8px;
+      border: 1px solid #ccc;
+    }
+    .search-input { 
+      border: none; 
+      padding: 6px 10px; 
+      outline: none; 
+      font-size: 14px; 
+      width: 140px; 
+      border-radius: 20px;
+      transition: width 0.3s; 
+    }
+    .search-input:focus { width: 180px; }
+    .search-btn { 
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      color: #24126a; 
+      padding: 4px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      font-size: 14px;
+    }
+    .search-btn:hover { color: #0e075e; }
+
+    /* RESPONSIVIDADE (MOBILE) */
+    .menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; background: none; border: none; }
+
+    @media (max-width: 900px) {
+      .top-bar { 
+        flex-direction: column; 
+        gap: 15px; 
+        padding: 15px 20px;
+        text-align: center;
+      }
+      .datetime-center { display: none; }
+      .top-bar .left-links { flex-basis: auto; width: 100%; justify-content: center; }
+      
+      .top-bar .right-section { 
+        flex-basis: auto; 
+        width: 100%; 
+        flex-direction: column; 
+        gap: 15px; 
+        align-items: center;
+      }
+      
+      .top-bar .right-section .links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      
+      .top-bar .social-icons { justify-content: center; width: 100%; }
+
+      /* BANNER E LOGO NO MOBILE */
+      .banner-container img.banner { display: none; }
+      .banner-container img.logo-overlay {
+        position: static; 
+        transform: none;  
+        margin: 15px auto;
+        display: block;
+        max-width: 85%;   
+        width: 240px;     
+      }
+
+      /* MENU RESPONSIVO */
+      nav { flex-direction: row; justify-content: space-between; padding: 10px 15px; }
+      .menu-toggle { display: block; }
+      
+      nav ul { 
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #d1c800;
+        flex-direction: column; 
+        display: none; 
+        width: 100%; 
+        text-align: center; 
+        padding: 15px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      }
+      nav ul.show { display: flex; }
+      nav ul li { width: 100%; margin: 5px 0; }
+      nav ul li ul { 
+        position: static; 
+        min-width: 100%; 
+        max-height: none; 
+        overflow: visible; 
+        box-shadow: none; 
+        background-color: #aea723;
+      }
+      
+      /* Toggle de Submenu no Mobile */
+      nav ul li.open > ul { display: block; }
+
+      .search-li { margin: 15px 0; }
+      .search-container-form { width: 220px; margin: 0 auto; }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+</head>
+<body>
+
+  <!-- BARRA TOPO DE SERVIÇOS -->
+  <div class="top-bar">
+    <div class="left-links">
+      <a href="https://portalmunicipios.com.br/servicos.php?vEMP_CNPJ=07536444000195" target="_blank">
+        <i class="fas fa-chart-bar"></i> Carta de Serviços
+      </a>
+    </div>
+    <div class="datetime-center" id="current-datetime">Carregando data e hora...</div>
+    <div class="right-section">
+      <div class="links">
+        <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=727&vORG_CODIGO=2020&vEMP_CNPJ=07536444000195" target="_blank"><i class="fas fa-headset"></i> Ouvidoria</a>
+        <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=731&vDESTINO=PAGE-ESIC&vEMP_CNPJ=07536444000195&vORG_CODIGO=2020002" target="_blank"><i class="fas fa-headset"></i> e-SIC</a>
+        <a href="https://novaolinda.ce.gov.br/index.php/transparencia/" target="_blank"><i class="fas fa-info-circle"></i> Transparência</a>
+      </div>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/prefeituradenovaolindace/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/@prefeituranovaolinda7440/streams" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://webmail.novaolinda.ce.gov.br/" target="_blank"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANNER / LOGO -->
+  <div class="banner-container">
+    <img class="banner" src="assets_slide_topo/fotodocabecalho.png" alt="Banner">
+    <a href="index.html">
+      <img class="logo-overlay" src="assets_slide_topo/logo-menor.png" alt="Logo Prefeitura de Nova Olinda">
+    </a>
+  </div>
+
+  <!-- MENU PRINCIPAL STICKY -->
+  <nav>
+    <a href="index.html" class="home-icon"><span class="material-icons">home</span></a>
+    <button class="menu-toggle" aria-label="Abrir Menu"><span class="material-icons">menu</span></button>
+    
+    <ul>
+      <li class="dropdown">
+        <a href="#">O Município</a>
+        <ul>
+          <li><a href="prefeito_vice.html">Prefeito e Vice-Prefeita</a></li>
+          <li><a href="bandeirahino.html">Brasão, Hino e Bandeira</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/historico/" target="_blank">Histórico</a></li>
+          <li><a href="perguntas_frequentes.html">Perguntas Frequentes</a></li>
+          <li><a href="https://cidades.ibge.gov.br/brasil/ce/nova-olinda/panorama" target="_blank">Dados Institucionais</a></li>
+          <li><a href="contatos.html">Telefones de Contato</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#">Serviços On-line</a>
+        <ul>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=730&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195" target="_blank">Portal do Contribuinte</a></li>
+          <li><a href="https://gestao.tecnocontas.com.br/webtsg/portalseg_login/?empcnpj=07536444000195" target="_blank">Nota Fiscal Eletrônica</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=735&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195" target="_blank">Impressão de IPTU</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=735&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195" target="_blank">Declaração Fiscal</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=735&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195" target="_blank">Declaração Eletrônica de Serviço</a></li>
+          <li><a href="https://www.diariomunicipal.com.br/aprece/pesquisar" target="_blank">Diário APRECE</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#">Órgãos</a>
+        <ul>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/secretarios/" target="_blank">Secretarias</a></li>
+          <li><a href="https://educacao.novaolinda.ce.gov.br/" target="_blank">Secretaria de Educação</a></li>
+          <li><a href="unidades_saude.html">Unidades de Saúde</a></li>
+          <li><a href="https://cultura.novaolinda.ce.gov.br/" target="_blank">Secretaria de Cultura</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/unidades-escolares/" target="_blank">Unidades Escolares</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/primeira-infancia/" target="_blank">Primeira-Infância</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/cadunico/" target="_blank">CadÚnico</a></li>
+          <li><a href="https://novaolindaprev.com.br/" target="_blank">PREVI-Nova Olinda</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="https://novaolinda.ce.gov.br/index.php/transparencia/" target="_blank">LRF/Transparência</a>
+        <ul>
+          <li><a href="https://licitacao.novaolinda.ce.gov.br/" target="_blank">Licitações</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=763&vORG_CODIGO=0303&vEMP_CNPJ=07536444000195" target="_blank">PCA - Plano de Contratação Anual</a></li>
+          <li><a href="https://www.sstransparenciamunicipal.net/transparencia/index.html?e=256" target="_blank">Folha de Pagamento</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=95&vEMP_CNPJ=07536444000195" target="_blank">RGF / Relatório de Gestão Fiscal</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=93&vEMP_CNPJ=07536444000195" target="_blank">LDO / Lei de Diretrizes Orçamentárias</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=94&vEMP_CNPJ=07536444000195" target="_blank">LOA / Lei de Orçamento Anual</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=96&vEMP_CNPJ=07536444000195" target="_blank">RREO / Relatório Resumido de Execução</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/prgfin-e-cmed/" target="_blank">PRGFIN e CMED</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/receita-orcamentaria-arrecadada/" target="_blank">Receita Arrecadada</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/receitas/" target="_blank">Receitas e Despesas</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/despesas-por-tipo/" target="_blank">Despesas por Tipo</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/cacs-processo.asp?txtPost=1&vEMP_CNPJ=07536444000195" target="_blank">CACS-Fundeb</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&vPCONTAS=1&vEMP_CNPJ=07536444000195" target="_blank">Prestação de Contas</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/convenios/" target="_blank">Convênios</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/informacoes-gerenciais-do-exercicio-2025/" target="_blank">Informações Gerenciais 2025</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?vEMP_CNPJ=07536444000195" target="_blank">Publicações</a>
+        <ul>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?vEMP_CNPJ=07536444000195" target="_blank">Processos e Publicações Legais</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/primeira-infancia/" target="_blank">Publicações Primeira Infância</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=92&vEMP_CNPJ=07536444000195" target="_blank">PPA / Plano Plurianual</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/diarias-2/" target="_blank">Diárias</a></li>
+          <li><a href="https://lookerstudio.google.com/reporting/835894a8-59e1-4087-849a-1f8a9eb01602/page/AF0ZF" target="_blank">Transparência das Diárias</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=89&vEMP_CNPJ=07536444000195" target="_blank">Editais</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=85&vEMP_CNPJ=07536444000195" target="_blank">Decretos</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=86&vEMP_CNPJ=07536444000195" target="_blank">Portarias</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo-dados.asp?vEMP_CNPJ=07536444000195&vPRC_NUMERO=202509290001" target="_blank">Plano Municipal de Educação</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/codigo-tributario-2/" target="_blank">Código Tributário</a></li>
+          <li><a href="pdf_licitacao/Lei-organica.pdf" target="_blank">Lei Orgânica</a></li>
+        </ul>
+      </li>
+
+      <!-- CAMPO DE BUSCA -->
+      <li class="search-li">
+        <form role="search" method="get" class="search-container-form" action="noticias-busca.html">
+          <input type="search" class="search-input" placeholder="Pesquisar..." name="q" required>
+          <button type="submit" class="search-btn" title="Buscar"><i class="fas fa-search"></i></button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- SCRIPT DE FUNCIONAMENTO DA DATA E DO MENU MOBILE -->
+  <script>
+    // Menu Hambúrguer Responsivo
+    const toggleBtn = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector("nav ul");
+    const dropdowns = document.querySelectorAll("nav ul li.dropdown");
+
+    toggleBtn.addEventListener("click", () => {
+      navMenu.classList.toggle("show");
+    });
+
+    // Permite abrir submenus ao clicar no mobile
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener("click", (e) => {
+        if (window.innerWidth <= 900) {
+          dropdown.classList.toggle("open");
+        }
+      });
+    });
+
+    // Atualização de Data e Hora
+    const datetimeElement = document.getElementById("current-datetime");
+    function updateDateTime() {
+        const now = new Date();
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        datetimeElement.innerHTML = `${now.toLocaleDateString('pt-BR', dateOptions)}, ${now.toLocaleTimeString('pt-BR', timeOptions)}`;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000); 
+  </script>
+</body>
+</html>

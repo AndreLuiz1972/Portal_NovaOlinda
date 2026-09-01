@@ -1,0 +1,209 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* ESTILO DO CAMPO DE BUSCA PARA O CABEÇALHO */
+        .header-search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 280px; /* Largura ideal para o cabeçalho */
+            width: 100%;
+        }
+
+        .header-search input {
+            width: 100%;
+            padding: 8px 36px 8px 12px;
+            font-size: 14px;
+            color: #333;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .header-search input:focus {
+            border-color: #0e075e;
+            box-shadow: 0 0 5px rgba(14, 7, 94, 0.3);
+        }
+
+        /* Botão / Ícone da Lupa */
+        .header-search button {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .header-search button:hover {
+            color: #0e075e;
+        }
+
+        /* CAIXA SUSPENSA COM OS RESULTADOS DA BUSCA */
+        .search-results {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-top: 5px;
+            max-height: 280px;
+            overflow-y: auto;
+            z-index: 10000;
+        }
+
+        .search-results a {
+            display: block;
+            padding: 10px 12px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        .search-results a:last-child {
+            border-bottom: none;
+        }
+
+        .search-results a:hover {
+            background-color: #f0f4f8;
+            color: #0e075e;
+        }
+
+        .search-results .categoria-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            background: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            display: inline-block;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .search-results .sem-resultado {
+            padding: 12px;
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CAIXA DE BUSCA DO CABEÇALHO -->
+    <div class="header-search">
+        <input 
+            type="text" 
+            id="buscaHeader" 
+            placeholder="Buscar no portal..." 
+            oninput="executarBuscaInstantanea()"
+            autocomplete="off"
+        >
+        <button type="button" onclick="executarBuscaInstantanea()" title="Buscar">🔍</button>
+
+        <!-- CAIXA ONDE APARECEM OS LINKS ENCONTRADOS -->
+        <div id="resultadosBusca" class="search-results"></div>
+    </div>
+
+    <script>
+        // MAPEAMENTO DE TODO O CONTEÚDO E PÁGINAS DO SEU SITE
+        // Adicione aqui os títulos, links e palavras-chave de busca
+        const indiceDoSite = [
+            {
+                titulo: "História de Nova Olinda",
+                url: "/historia",
+                categoria: "Institucional",
+                keywords: ["história", "tapera", "formação", "povoado", "santana do cariri", "triunfo"]
+            },
+            {
+                titulo: "Unidades de Saúde e Postos",
+                url: "/saude",
+                categoria: "Saúde",
+                keywords: ["saúde", "hospital", "ubs", "postos", "atendimento", "vacina", "ana alencar", "vila alta", "triunfo", "posto de saude"]
+            },
+            {
+                titulo: "Perguntas Frequentes (FAQ) e LAI",
+                url: "/faq",
+                categoria: "Transparência",
+                keywords: ["faq", "perguntas", "dúvidas", "transparência", "lei de acesso", "lai", "sic", "receita", "despesa"]
+            },
+            {
+                titulo: "Portal Nacional de Contratações (PNCP)",
+                url: "/faq",
+                categoria: "Licitações",
+                keywords: ["pncp", "pca", "plano de contratação", "contratos", "compras", "edital"]
+            },
+            {
+                titulo: "Licitações e Editais do Município",
+                url: "/licitacoes",
+                categoria: "Licitações",
+                keywords: ["licitacao", "licitações", "editais", "processo seletivo", "concurso", "contratação"]
+            }
+        ];
+
+        // Função que filtra as palavras-chave enquanto o usuário digita
+        function executarBuscaInstantanea() {
+            const termo = document.getElementById('buscaHeader').value.toLowerCase().trim();
+            const containerResultados = document.getElementById('resultadosBusca');
+
+            // Se digitou menos de 2 caracteres, esconde a caixa de resultados
+            if (termo.length < 2) {
+                containerResultados.style.display = 'none';
+                containerResultados.innerHTML = '';
+                return;
+            }
+
+            // Filtra os itens do array do site
+            const resultados = indiceDoSite.filter(item => {
+                const encontrouTitulo = item.titulo.toLowerCase().includes(termo);
+                const encontrouKeyword = item.keywords.some(kw => kw.toLowerCase().includes(termo));
+                return encontrouTitulo || encontrouKeyword;
+            });
+
+            // Monta os links na tela
+            containerResultados.innerHTML = '';
+
+            if (resultados.length > 0) {
+                resultados.forEach(item => {
+                    containerResultados.innerHTML += `
+                        <a href="${item.url}">
+                            <span class="categoria-tag">${item.categoria}</span><br>
+                            <strong>${item.titulo}</strong>
+                        </a>
+                    `;
+                });
+            } else {
+                containerResultados.innerHTML = `<div class="sem-resultado">Nenhum resultado para "${termo}"</div>`;
+            }
+
+            containerResultados.style.display = 'block';
+        }
+
+        // Esconde o menu suspenso se o usuário clicar em qualquer outro lugar da tela
+        document.addEventListener('click', function(e) {
+            const buscaBox = document.querySelector('.header-search');
+            if (!buscaBox.contains(e.target)) {
+                document.getElementById('resultadosBusca').style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

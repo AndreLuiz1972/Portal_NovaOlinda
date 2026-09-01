@@ -1,0 +1,408 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal da Prefeitura - Notícias e Destaques</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* ESTRUTURA PRINCIPAL DE 2 COLUNAS */
+        .main-container {
+            max-width: 1350px;
+            margin: 25px auto;
+            padding: 0 15px;
+            display: flex;
+            gap: 25px;
+            align-items: stretch; /* Garante que ambas as colunas tenham a mesma altura */
+        }
+
+        /* COLUNA DA ESQUERDA (SLIDE) */
+        .col-destaques {
+            flex: 50;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* COLUNA DA DIREITA (ACERVO) */
+        .col-antigas {
+            flex: 50;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #0e075e;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #0e075e;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- SLIDE AJUSTADO PARA OCURPAR 100% DA ALTURA DISPONÍVEL --- */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            flex-grow: 1; /* Faz o slide se esticar até o final da coluna */
+            height: 100%; /* Preenche a altura da coluna da direita */
+            min-height: 250px;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 12px 30px 12px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /* BOTÕES E DOTS DO SLIDE */
+        .btn-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 14px;
+            z-index: 10;
+        }
+
+        .btn-prev { left: 10px; }
+        .btn-next { right: 10px; }
+
+        .dots-container {
+            text-align: center;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 8px;
+            width: 8px;
+            margin: 0 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot.active {
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+
+        /* --- CARDS DE ACERVO (DIREITA) --- */
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .icon-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        .icon-card:hover {
+            border-color: #0e075e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 70px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .icon-card:hover .card-img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .card-info {
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #ffffff;
+            flex-grow: 1;
+        }
+
+        .card-info span {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0e075e;
+        }
+
+        .btn-ver-todas {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #0e075e;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn-ver-todas:hover {
+            background-color: #1c1099;
+        }
+
+        /* ADAPTAÇÃO PARA CELULAR */
+        @media (max-width: 850px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .slider-wrapper {
+                height: 240px;
+            }
+            .card-img-wrapper {
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTAINER DE 2 COLUNAS -->
+    <div class="main-container">
+
+        <!-- COLUNA DA ESQUERDA: SLIDE QUE ACOMPANHA A ALTURA DA DIREITA -->
+        <div class="col-destaques">
+            <h2 class="section-title">📌 Destaques</h2>
+            
+            <div class="slider-wrapper">
+                <div class="slider" id="sliderDestaques">
+                    
+                    <!-- SLIDE 1 -->
+                    <div class="slide">
+                        <a href="noticias/noticia-1.html">
+                            <img src="Artigosepostagens/imagens de artigos/card-001--770x500.png" alt="Destaque 1">
+                            <div class="slide-caption">Prefeitura lança novas obras de pavimentação</div>
+                        </a>
+                    </div>
+
+                    <!-- SLIDE 2 -->
+                    <div class="slide">
+                        <a href="noticias/noticia-2.html">
+                            <img src="Artigosepostagens/imagens de artigos/card-inagugracoes-770x500.jpg" alt="Destaque 2">
+                            <div class="slide-caption">Campanha de vacinação é prorrogada</div>
+                        </a>
+                    </div>
+
+                    <!-- SLIDE 3 -->
+                    <div class="slide">
+                        <a href="noticias/noticia-3.html">
+                            <img src="Artigosepostagens/imagens de artigos/ideb-554x360.png" alt="Destaque 3">
+                            <div class="slide-caption">Inscrições abertas para cursos gratuitos</div>
+                        </a>
+                    </div>
+
+                    <!-- SLIDE 4 -->
+                    <div class="slide">
+                        <a href="noticias/noticia-4.html">
+                            <img src="Artigosepostagens/imagens de artigos/reinauguracao-600x389.png" alt="Destaque 4">
+                            <div class="slide-caption">Calendário de festividades do município</div>
+                        </a>
+                    </div>
+
+                </div>
+
+                <button class="btn-nav btn-prev" onclick="moveSlideDestaque(-1)">&#10094;</button>
+                <button class="btn-nav btn-next" onclick="moveSlideDestaque(1)">&#10095;</button>
+
+                <div class="dots-container">
+                    <span class="dot active" onclick="currentSlideDestaque(0)"></span>
+                    <span class="dot" onclick="currentSlideDestaque(1)"></span>
+                    <span class="dot" onclick="currentSlideDestaque(2)"></span>
+                    <span class="dot" onclick="currentSlideDestaque(3)"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUNA DA DIREITA: CARDS DE ACERVO -->
+        <div class="col-antigas">
+            <h2 class="section-title">📂 Mais Noticias</h2>
+            
+            <div class="icons-grid">
+                
+                <!-- CARD 1 -->
+                <a href="noticias/saude.html" class="icon-card">
+                    <div class="card-img-wrapper">
+                        <img src="img-saude.jpg" alt="Notícias da Saúde">
+                    </div>
+                    <div class="card-info">
+                        <span>Saúde</span>
+                    </div>
+                </a>
+
+                <!-- CARD 2 -->
+                <a href="noticias/educacao.html" class="icon-card">
+                    <div class="card-img-wrapper">
+                        <img src="img-educacao.jpg" alt="Notícias da Educação">
+                    </div>
+                    <div class="card-info">
+                        <span>Educação</span>
+                    </div>
+                </a>
+
+                <!-- CARD 3 -->
+                <a href="noticias/obras.html" class="icon-card">
+                    <div class="card-img-wrapper">
+                        <img src="img-obras.jpg" alt="Obras e Infraestrutura">
+                    </div>
+                    <div class="card-info">
+                        <span>Obras e Infra</span>
+                    </div>
+                </a>
+
+                <!-- CARD 4 -->
+                <a href="noticias/boletins.html" class="icon-card">
+                    <div class="card-img-wrapper">
+                        <img src="img-boletim.jpg" alt="Boletins Oficiais">
+                    </div>
+                    <div class="card-info">
+                        <span>Boletins Oficiais</span>
+                    </div>
+                </a>
+
+                <!-- CARD 5 -->
+                <a href="noticias/arquivo-2026.html" class="icon-card">
+                    <div class="card-img-wrapper">
+                        <img src="img-2026.jpg" alt="Notícias 2026">
+                    </div>
+                    <div class="card-info">
+                        <span>Notícias 2026</span>
+                    </div>
+                </a>
+
+                <!-- CARD 6 -->
+                <a href="noticias/arquivo-geral.html" class="icon-card">
+                    <div class="card-img-wrapper">
+                        <img src="img-arquivo.jpg" alt="Anos Anteriores">
+                    </div>
+                    <div class="card-info">
+                        <span>Anos Anteriores</span>
+                    </div>
+                </a>
+
+            </div>
+
+            <a href="noticias/todas.html" class="btn-ver-todas">Buscar Notícias Antigas →</a>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE NAVEGAÇÃO -->
+    <script>
+        let indexDestaque = 0;
+        const slidesDestaque = document.querySelectorAll('#sliderDestaques .slide');
+        const sliderDestaque = document.getElementById('sliderDestaques');
+        const dotsDestaque = document.querySelectorAll('.dots-container .dot');
+        const totalDestaques = slidesDestaque.length;
+
+        function updateSliderDestaque() {
+            sliderDestaque.style.transform = `translateX(-${indexDestaque * 100}%)`;
+            dotsDestaque.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === indexDestaque);
+            });
+        }
+
+        function moveSlideDestaque(direction) {
+            indexDestaque = (indexDestaque + direction + totalDestaques) % totalDestaques;
+            updateSliderDestaque();
+        }
+
+        function currentSlideDestaque(idx) {
+            indexDestaque = idx;
+            updateSliderDestaque();
+        }
+
+        setInterval(() => {
+            moveSlideDestaque(1);
+        }, 5000);
+    </script>
+
+</body>
+</html>

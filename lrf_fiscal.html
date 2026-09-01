@@ -1,0 +1,146 @@
+ <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LRF - Lei de Responsabilidade Fiscal e Contas Públicas</title>
+    <style>
+        /* Reset universal: define padding e margin zero para todos os elementos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Garante que padding e borda sejam incluídos na largura e altura total */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            /* AJUSTADO: Padding superior e inferior zerados para colar no topo e no fundo */
+            padding: 0 30px; 
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            /* AJUSTADO: Removida margem superior para colar no topo */
+            margin-top: 0; 
+            margin-bottom: 5px; 
+            font-size: 24px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px; 
+            font-size: 14px;
+        }
+
+        .buttons-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px; 
+        }
+
+        /* Segunda linha de botões */
+        .buttons-grid.bottom {
+            /* AJUSTADO: Garante que a última linha de botões cole na borda inferior */
+            margin-bottom: 0; 
+        }
+
+        .button-card {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 20px; 
+            text-align: left;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            min-height: 70px;
+            width: 300px;
+            max-width: 100%;
+        }
+
+        .button-card:hover {
+            background-color: #0056b3;
+        }
+
+        .button-card .icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px; 
+            filter: invert(100%);
+            flex-shrink: 0;
+        }
+
+        .button-card span {
+            font-weight: bold;
+            font-size: 15px;
+            flex-grow: 1;
+            line-height: 1.3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LRF - Lei de Responsabilidade Fiscal e Contas públicas</h1>
+        <p>Lei complementar Nº 101 (Transparência)</p>
+
+        <div class="buttons-grid top">
+            <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=96&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ff/document.png" alt="Ícone Documento" class="icon">
+                <span>RREO - Relatório Resumido</span>
+            </a>
+            <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=95&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/fff/document.png" alt="Ícone Documento" class="icon">
+                <span>RGF - Relatório de Gestão Fiscal</span>
+            </a>
+            <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=94&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/fff/document.png" alt="Ícone Documento" class="icon">
+                <span>LOA - Lei Orçamentária Anual</span>
+            </a>
+            <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=93&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffff/document.png" alt="Ícone Documento" class="icon">
+                <span>LDO - Lei de Diretrizes Orçamentárias</span>
+            </a>
+        </div>
+
+        <div class="buttons-grid bottom">
+            <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=92&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/fff/document.png" alt="Ícone Documento" class="icon">
+                <span>PPA - PLANO PLURIANUAL</span>
+            </a>
+            <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&vPCONTAS=1&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/fff/document.png" alt="Ícone Documento" class="icon">
+                <span>PCG - PRESTAÇÃO DE CONTAS DE GOVERNO</span>
+            </a>
+            <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&vPCONTAS=1&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/fff/document.png" alt="Ícone Documento" class="icon">
+                <span>PCS - PRESTAÇÃO DE CONTAS DE GESTÃO</span>
+            </a>
+             <a href="https://lookerstudio.google.com/reporting/cd1a449c-c8b6-402b-8524-354a6eb4c3a0/page/UzamD" class="button-card" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffff/document.png" alt="Ícone Documento" class="icon">
+                <span>PCA-PLANO DE CONTRATAÇÃO ANUAL</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

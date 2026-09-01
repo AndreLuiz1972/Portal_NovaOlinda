@@ -1,0 +1,282 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Unidades da Instituição de Saúde</title>
+    <style>
+        /* Reset de margens para colar o cabeçalho no topo e nas bordas */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        /* Container do cabeçalho com z-index alto para o submenu sobrepor o conteúdo */
+        #cabecalho-container {
+            position: relative;
+            z-index: 9999;
+            width: 100%;
+        }
+
+        /* Espaçamento do conteúdo principal */
+        .conteudo-principal {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .instituicao-header {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 20px;
+        }
+
+        .instituicao-header h1 {
+            color: #0056b3; 
+            font-size: 2.8em;
+            border-bottom: 4px solid #0056b3;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Contêiner em 1 coluna */
+        .unidades-lista {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 30px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+
+        /* Card retangular da unidade */
+        .instituicao-info-card {
+            display: flex; 
+            border: 1px solid #ddd;
+            border-radius: 12px; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            overflow: hidden; 
+            transition: transform 0.3s ease;
+        }
+
+        .instituicao-info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Seção da imagem */
+        .imagem-container {
+            flex-basis: 35%; 
+            min-width: 250px;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .imagem-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+        }
+
+        /* Seção de detalhes */
+        .detalhes-container {
+            flex-basis: 65%; 
+            padding: 20px;
+        }
+
+        .titulo-unidade {
+            color: #17a2b8; 
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .lista-detalhes {
+            list-style: none; 
+            padding: 0;
+            margin: 0;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .lista-detalhes li {
+            margin-bottom: 6px;
+            color: #555;
+        }
+        
+        /* Ajuste para telas pequenas */
+        @media (max-width: 650px) {
+            .instituicao-info-card {
+                flex-direction: column;
+            }
+            .imagem-container {
+                height: 200px; 
+                min-width: 100%;
+                flex-basis: auto;
+            }
+            .detalhes-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Local onde o cabeçalho será injetado limpo via JS -->
+    <div id="cabecalho-container"></div>
+
+    <main class="conteudo-principal">
+        <header class="instituicao-header">
+            <h1>Unidades de Saúde</h1>
+        </header>
+
+        <div class="unidades-lista">
+            
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2025/10/hospital-Hospital-Municipal-Ana-Alencar-Alves.webp" alt="UMS Municipal Ana Alencar Alves">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">UMS Municipal Ana Alencar Alves</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Joana Cordeiro - Nova Olinda, CE, 63165-000</li>
+                        <li><strong>Horário de Atendimento:</strong> 24 horas</li>
+                        <li><strong>Diretora:</strong> Fernanda Jaqueline dos Santos Oliveira</li>
+                        <li><strong>Serviços Prestados:</strong> Clínica Geral</li>
+                        <li><strong>Contatos:</strong> 55 (88) 2018-1484 | <br><strong>Email:</strong> hospitalanalaalencar@novaolinda.ce.gov.br</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2026/01/PHOTO-2026-01-27-09-53-31.jpg" alt="Centro de Saúde">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">Centro de Saúde</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Rua Alvin Alves, S/N, Centro, Nova Olinda CE.</li>
+                        <li><strong>Horário:</strong> Seg. a Sex. das 8h às 17h</li>
+                        <li><strong>Responsável:</strong> Agna Hayanna Alencar Cardoso</li>
+                        <li><strong>Serviços Ofertados:</strong> O Centro de Saúde oferece atendimento em clínica geral, pré-natal, puericultura, hiperdia, atendimentos a doenças infecciosas, hanseníase, tuberculose, atendimento ambulatorial completo, visita domiciliar e atividades educativas.</li>
+                        <li><strong>Contatos:</strong> (XX) xxxx-xxxx</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2026/01/PHOTO-2026-01-27-14-07-37.jpg" alt="UBS Vila Alta">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">UBS Vila Alta - Maria Pereira Muniz</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Bairro Vila Alta</li>
+                        <li><strong>Horário:</strong> Seg. a Sáb. das 7h às 17h</li>
+                        <li><strong>Responsável:</strong> Andreia Braga de Souza Lacerda</li>
+                        <li><strong>Serviços Prestados:</strong> Unidade Básica de Saúde (UBS) que oferece Atenção Primária, com atuação na Estratégia Saúde da Família, pré-natal, imunização, saúde bucal, e telessaúde, dispondo de serviços ambulatoriais e de apoio à assistência.</li>
+                        <li><strong>Contatos:</strong> Aguardando informação</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2026/01/PHOTO-2026-01-27-14-08-07.jpg" alt="UBS do Distrito de Triunfo">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">UBS do Distrito de Triunfo</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Distrito de Triunfo</li>
+                        <li><strong>Horário:</strong> Seg. a Sex. das 7h às 17h</li>
+                        <li><strong>Responsável:</strong> Francisca Ascilânya Pereira Costa</li>
+                        <li><strong>Serviços Prestados:</strong> Unidade Básica de Saúde (UBS) que oferece Atenção Primária, com atuação na Estratégia Saúde da Família, pré-natal, imunização, saúde bucal, e telessaúde, dispondo de serviços ambulatoriais e de apoio à assistência.</li>
+                        <li><strong>Contatos:</strong> (XX) 3333-3333</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2026/01/terreiro-duro--scaled.png" alt="UBS Pedrina Monteiro de Sousa">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">UBS Pedrina Monteiro de Sousa</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Rua Cícero Barbosa</li>
+                        <li><strong>Horário:</strong> 8h às 17h</li>
+                        <li><strong>Responsável:</strong> Leonardo Oliveira Lacerda</li>
+                        <li><strong>Serviços Ofertados:</strong> Unidade Básica de Saúde (UBS) que oferece Atenção Primária, com atuação na Estratégia Saúde da Família, pré-natal, imunização, saúde bucal, e telessaúde, dispondo de serviços ambulatoriais e de apoio à assistência.</li>
+                        <li><strong>Contatos:</strong> (XX) xxxx-xxxx</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2026/01/PHOTO-2026-01-27-14-07-12.jpg" alt="Unidade Nossa Senhora de Fátima">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">Unidade Básica em Saúde da Família Nossa Senhora de Fátima</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Rua Ubirajara Lacerda</li>
+                        <li><strong>Horário:</strong> Seg. a Sex. das 8h às 17h</li>
+                        <li><strong>Responsável:</strong> Maria da Conceição Balbino</li>
+                        <li><strong>Serviços Ofertados:</strong> Unidade Básica de Saúde (UBS) que oferece Atenção Primária, com atuação na Estratégia Saúde da Família, pré-natal, imunização, saúde bucal, e telessaúde, dispondo de serviços ambulatoriais e de apoio à assistência.</li>
+                        <li><strong>Contatos:</strong> (XX) xxxx-xxxx</li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2026/01/PHOTO-2026-01-28-10-10-27.jpg" alt="Unidade Esmeraldina Pereira de Brito">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">Unidade de Saúde da Família Esmeraldina Pereira de Brito</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Sítio Barreiros, Zona Rural</li>
+                        <li><strong>Horário:</strong> Seg. a Sáb. das 8h às 17h</li>
+                        <li><strong>Responsável:</strong> Helvis Eduardo Oliveira da Silva</li>
+                        <li><strong>Serviços Ofertados:</strong> Unidade Básica de Saúde (UBS) que oferece Atenção Primária, com atuação na Estratégia Saúde da Família, pré-natal, imunização, saúde bucal, e telessaúde, dispondo de serviços ambulatoriais e de apoio à assistência.</li>
+                        <li><strong>Contatos:</strong> (XX) 3333-6666</li>
+                    </ul>
+                </div>
+            </div>
+                 
+            <div class="instituicao-info-card">
+                <div class="imagem-container">
+                    <img src="https://novaolinda.ce.gov.br/wp-content/uploads/2026/01/PHOTO-2026-01-27-20-42-58.jpg" alt="Antonia Minervina de Araujo">
+                </div>
+                <div class="detalhes-container">
+                    <h2 class="titulo-unidade">Antonia Minervina de Araujo</h2>
+                    <ul class="lista-detalhes">
+                        <li><strong>Local:</strong> Rua Antonia Gesielda</li>
+                        <li><strong>Horário:</strong> 8h às 17h</li>
+                        <li><strong>Responsável:</strong> Mariany Moreira Sisnando Feitosa</li>
+                        <li><strong>Serviços Ofertados:</strong> Unidade Básica de Saúde (UBS) que oferece Atenção Primária, com atuação na Estratégia Saúde da Família, pré-natal, imunização, saúde bucal, e telessaúde, dispondo de serviços ambulatoriais e de apoio à assistência.</li>
+                        <li><strong>Contatos:</strong> (XX) xxxx-xxxx</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Injeção do cabeçalho via fetch -->
+    <script>
+        fetch('cabecalho.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('cabecalho-container').innerHTML = data;
+            })
+            .catch(error => console.error('Erro ao carregar o cabeçalho:', error));
+    </script>
+</body>
+</html>

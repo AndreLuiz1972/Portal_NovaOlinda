@@ -1,0 +1,237 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide de Banner Estreito (Esmaecer)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+        }
+
+        /* CONTAINER DO SLIDER - TELA CHEIA E ESTREITO */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 160px; /* <--- ALTURA DO BANNER */
+            background-color: #0e075e;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* MODIFICADO: empilha os slides e usa opacidade para esmaecer */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out; /* Transição suave de esmaecimento */
+            z-index: 1;
+        }
+
+        /* SLIDE ATIVO: fica visível com opacidade 1 */
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        /* O LINK ENVOLVE A IMAGEM INTEIRA */
+        .slide a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        /* CONFIGURAÇÃO PARA A IMAGEM APARECER 100% SEM CORTAR */
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* BOTÕES DE NAVEGAÇÃO */
+        .btn-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border: none;
+            padding: 10px 14px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 18px;
+            z-index: 10;
+            transition: background-color 0.3s;
+        }
+
+        .btn-nav:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-prev { left: 15px; }
+        .btn-next { right: 15px; }
+
+        /* PONTOS DE NAVEGAÇÃO */
+        .dots-container {
+            text-align: center;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .dot.active {
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INÍCIO DO SLIDE -->
+    <div class="slider-wrapper">
+        <div class="slider" id="slider">
+            
+            <!-- SLIDE 1 - APRECE DIARIO (Começa com a classe 'active') -->
+            <div class="slide active">
+                <a href="https://www.diariomunicipal.com.br/aprece/pesquisar?busca_avancada%5Bpage%5D=&busca_avancada%5BentidadeUsuaria%5D=26505&busca_avancada%5Bnome_orgao%5D=&busca_avancada%5Btitulo%5D=&busca_avancada%5Btexto%5D=&busca_avancada%5BdataInicio%5D=01%2F06%2F2026&busca_avancada%5BdataFim%5D=01%2F06%2F2026&busca_avancada%5BEnviar%5D=&busca_avancada%5B_token%5D=fb4f6d280e3b0295d3c6fe75dfc.2uEOh1nwJn_JWj_wj-Bxl7kJVErYldCPTnuhHxxkMkU.qtZ63jTBTR6GPHap_KY0p5RAYAeI1L75eU3gfX4DAS2umUTfFJt0Sphieg#" target="_blank">
+                    <img src="assets_slide_topo/1.png" alt="Banner 1 - Diário Oficial">
+                </a>
+            </div>
+
+            <!-- SLIDE 2 - OUVIDORIA -->
+            <div class="slide">
+                <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=727&vORG_CODIGO=2020&vEMP_CNPJ=07536444000195" target="_blank">
+                    <img src="assets_slide_topo/2.png" alt="Banner 2">
+                </a>
+            </div>
+
+            <!-- SLIDE 3 PRIMEIRA INFANCIA-->
+            <div class="slide">
+                <a href="primeirainfancia.html">
+                    <img src="assets_slide_topo/3.png" alt="Banner 3">
+                </a>
+            </div>
+
+            <!-- SLIDE 4 - LDO -->
+            <div class="slide">
+                <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=93&vEMP_CNPJ=07536444000195" target="_blank">
+                    <img src="assets_slide_topo/4.png" alt="Banner 4">
+                </a>
+            </div>
+
+            <!-- SLIDE 5 NOTA FISCAL-->
+            <div class="slide">
+                <a href="https://gestao.tecnocontas.com.br/webtsg/portalseg_login/?empcnpj=07536444000195" target="_blank">
+                    <img src="assets_slide_topo/5.png" alt="Banner 5">
+                </a>
+            </div>
+
+            <!-- SLIDE 6 CONTRACHEQUE -->
+            <div class="slide">
+                <a href="https://www.sstransparenciamunicipal.net/ssfolha/sisfo_login.php?entcod=256" target="_blank">
+                    <img src="assets_slide_topo/6.png" alt="Banner 6">
+                </a>
+            </div>
+
+            <!-- SLIDE 7 -->
+            <div class="slide">
+                <a href="https://suapagina.com/destino-7">
+                    <img src="assets_slide_topo/7.png" alt="Banner 7">
+                </a>
+            </div>
+
+            <!-- SLIDE 8 - IPTU-->
+            <div class="slide">
+                <a href="https://suapagina.com/destino-8">
+                    <img src="assets_slide_topo/8.png" alt="Banner 8">
+                </a>
+            </div>
+
+        </div>
+
+        <!-- SETAS DE NAVEGAÇÃO -->
+        <button class="btn-nav btn-prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="btn-nav btn-next" onclick="moveSlide(1)">&#10095;</button>
+
+        <!-- INDICADORES (BOLINHAS) -->
+        <div class="dots-container">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+            <span class="dot" onclick="currentSlide(6)"></span>
+            <span class="dot" onclick="currentSlide(7)"></span>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE FUNCIONAMENTO -->
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            // Alterna a classe 'active' para esmaecer suavemente
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentIndex);
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function moveSlide(direction) {
+            currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function currentSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        // Transição automática a cada 6 segundos
+        setInterval(() => {
+            moveSlide(1);
+        }, 6000);
+    </script>
+
+</body>
+</html>

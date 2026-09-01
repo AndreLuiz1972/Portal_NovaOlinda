@@ -1,0 +1,193 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>História de Nova Olinda</title>
+  <style>
+    /* Reset básico e tipografia global */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.7;
+      color: #333333;
+      background-color: #f8f9fa;
+    }
+
+    /* Container do Cabeçalho - Garante que o menu fique por CIMA do conteúdo */
+    #cabecalho-container {
+      position: relative;
+      z-index: 1000; /* Z-Index alto para o menu sobrepor tudo */
+      width: 100%;
+    }
+
+    /* Card principal de conteúdo */
+    .historia-card {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e9ecef;
+      position: relative;
+      z-index: 1; /* Mantém o card na camada inferior */
+    }
+
+    /* Estilização dos Títulos */
+    .titulo-principal {
+      font-size: 2rem;
+      color: #0056b3;
+      border-bottom: 3px solid #0056b3;
+      padding-bottom: 10px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .subtitulo {
+      font-size: 1.35rem;
+      color: #111111;
+      margin: 32px 0 16px 0;
+      padding-left: 12px;
+      border-left: 4px solid #0056b3;
+    }
+
+    /* Parágrafo introdutório em destaque */
+    .intro-texto {
+      font-size: 1.1rem;
+      color: #495057;
+      background-color: #f1f3f5;
+      padding: 18px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #6c757d;
+    }
+
+    .texto-comum {
+      margin-bottom: 16px;
+      color: #333333;
+    }
+
+    /* Lista da Cronologia Histórica */
+    .cronologia-lista {
+      list-style: none;
+      padding: 0;
+      margin-top: 16px;
+    }
+
+    .cronologia-item {
+      position: relative;
+      padding: 16px 20px 16px 24px;
+      margin-bottom: 12px;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cronologia-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+      border-color: #0056b3;
+    }
+
+    .destaque-data {
+      font-weight: 700;
+      color: #0056b3;
+    }
+
+    /* Responsividade para celulares */
+    @media (max-width: 600px) {
+      .historia-card {
+        padding: 20px;
+        margin: 20px 15px;
+      }
+      
+      .titulo-principal {
+        font-size: 1.6rem;
+      }
+
+      .subtitulo {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Container do cabeçalho no lugar do iframe -->
+  <div id="cabecalho-container"></div>
+
+  <article class="historia-card">
+    
+    <h2 class="titulo-principal">História</h2>
+
+    <p class="intro-texto">
+      Primitivamente chamou-se <strong>Tapera</strong>, porém em razão do seu aspecto geográfico, um missionário pernambucano mudou o topônimo para <strong>Nova Olinda</strong>.
+    </p>
+
+    <p class="texto-comum">
+      Pertencente ao município de Santana do Cariri, o então povoado passou à categoria de distrito por força do <em>Decreto n.º 1.256</em>, de 4 de dezembro de 1933.
+    </p>
+
+    <h3 class="subtitulo">Formação Administrativa</h3>
+
+    <ul class="cronologia-lista">
+      <li class="cronologia-item">
+        Distrito criado com a denominação <strong>Nova Olinda</strong> (ex-povoado), pelo Decreto n.º 1.256, de <span class="destaque-data">04-12-1933</span>, subordinado ao município de Santana do Cariri.
+      </li>
+      
+      <li class="cronologia-item">
+        Em divisão administrativa referente ao ano de 1933, o distrito de Nova Olinda figura no município de Santana do Cariri, assim permanecendo em divisões territoriais datadas de <span class="destaque-data">31-XII-1936</span> e <span class="destaque-data">31-XII-1937</span>.
+      </li>
+
+      <li class="cronologia-item">
+        Pelo Decreto-lei Estadual n.º 448, de <span class="destaque-data">20-12-1938</span>, o município de Santana do Cariri passou a denominar-se <strong>Santanópole</strong>.
+      </li>
+
+      <li class="cronologia-item">
+        Em divisão territorial datada de <span class="destaque-data">1-VII-1950</span>, o distrito de Nova Olinda figura no município de Santanópole (ex-Santana do Cariri).
+      </li>
+
+      <li class="cronologia-item">
+        Pela Lei Estadual n.º 1.153, de <span class="destaque-data">22-11-1953</span>, o município de Santanópole volta a denominar-se <strong>Santana do Cariri</strong>.
+      </li>
+
+      <li class="cronologia-item">
+        Em divisão territorial datada de <span class="destaque-data">1-VII-1955</span>, o distrito de Nova Olinda figura no município de Santana do Cariri (ex-Santanópole).
+      </li>
+
+      <li class="cronologia-item">
+        Elevado à categoria de município com a denominação de <strong>Nova Olinda</strong>, pela Lei Estadual n.º 3.555, de <span class="destaque-data">14-03-1957</span>, desmembrado de Santana do Cariri. Sede no antigo distrito de Nova Olinda. Constituído do distrito sede e instalado em <span class="destaque-data">14-06-1957</span>.
+      </li>
+
+      <li class="cronologia-item">
+        Em <span class="destaque-data">28-08-2009</span> foi criado o distrito de <strong>Triunfo</strong>, sendo instalado em <span class="destaque-data">25-11-2009</span>.
+      </li>
+
+      <li class="cronologia-item">
+        Em divisão territorial de 2010, o município é constituído pelos distritos de <strong>Nova Olinda</strong> e <strong>Triunfo</strong>, assim permanecendo na divisão territorial de <span class="destaque-data">2022</span>.
+      </li>
+    </ul>
+
+  </article>
+
+  <!-- Script que injeta o cabeçalho no mesmo documento -->
+  <script>
+    fetch('/cabecalho.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('cabecalho-container').innerHTML = data;
+      })
+      .catch(error => console.error('Erro ao carregar o cabeçalho:', error));
+  </script>
+<iframe src="/rodape.html" width="100%" height="400" frameborder="0"></iframe>
+</body>
+</html>

@@ -1,0 +1,448 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perguntas Frequentes - Portal da Transparência</title>
+  <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      background-color: #f8f9fa;
+    }
+
+    /* Container do Cabeçalho Injetado - Z-Index alto para o submenu ficar por CIMA do conteúdo */
+    #cabecalho-container {
+      position: relative;
+      z-index: 9999;
+      width: 100%;
+    }
+
+    /* Container Principal da FAQ - Z-index inferior para ficar por baixo do menu */
+    .faq-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .faq-titulo {
+      font-size: 2.2rem;
+      color: #0056b3;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .faq-subtitulo {
+      color: #6c757d;
+      font-size: 1.05rem;
+    }
+
+    /* Campo de Pesquisa */
+    .busca-box {
+      margin-bottom: 30px;
+    }
+
+    .busca-input {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1rem;
+      border: 2px solid #dee2e6;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .busca-input:focus {
+      border-color: #0056b3;
+      box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
+    }
+
+    /* Estilo dos Cards Interativos (Acordeão) */
+    .faq-item {
+      background: #ffffff;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+    }
+
+    .faq-item:hover {
+      border-color: #0056b3;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Pergunta (summary) */
+    .faq-pergunta {
+      padding: 18px 20px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #111111;
+      cursor: pointer;
+      list-style: none; /* Remove a seta padrão */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .faq-pergunta::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-pergunta::after {
+      content: '＋';
+      font-size: 1.2rem;
+      color: #0056b3;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+
+    /* Seta vira sinal de menos quando aberto */
+    .faq-item[open] .faq-pergunta::after {
+      content: '－';
+    }
+
+    .faq-item[open] .faq-pergunta {
+      background-color: #f1f3f5;
+      color: #0056b3;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    /* Resposta (conteúdo) */
+    .faq-resposta {
+      padding: 20px;
+      color: #495057;
+      font-size: 1rem;
+      background-color: #ffffff;
+      line-height: 1.7;
+    }
+
+    /* Mensagem de busca vazia */
+    .sem-resultado {
+      display: none;
+      text-align: center;
+      color: #6c757d;
+      padding: 30px;
+      font-size: 1.1rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      .faq-container {
+        margin: 20px auto;
+      }
+      .faq-titulo {
+        font-size: 1.75rem;
+      }
+      .faq-pergunta {
+        font-size: 0.95rem;
+        padding: 14px 16px;
+      }
+      .faq-resposta {
+        padding: 16px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Container onde o cabeçalho será injetado (substitui o iframe) -->
+  <div id="cabecalho-container"></div>
+
+  <!-- Conteúdo da FAQ -->
+  <main class="faq-container">
+    
+    <header class="faq-header">
+      <h1 class="faq-titulo">Perguntas Frequentes</h1>
+      <p class="faq-subtitulo">Encontre respostas rápidas sobre a Lei de Acesso à Informação e Portal da Transparência</p>
+    </header>
+
+    <!-- Campo de Busca em Tempo Real -->
+    <div class="busca-box">
+      <input 
+        type="text" 
+        id="inputBusca" 
+        class="busca-input" 
+        placeholder="Digite uma palavra para pesquisar nas perguntas (ex: PCA, licitação, prazo)..." 
+        oninput="filtrarFAQ()"
+      />
+    </div>
+
+    <!-- Lista de Perguntas (Acordeões) -->
+    <div id="listaFAQ">
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">1. O que é o Portal da Transparência?</summary>
+        <div class="faq-resposta">
+          O Portal da Transparência é um site criado por Entidades Públicas que contém informações acerca das ações governamentais, execução orçamentária e financeira (receitas e despesas), movimento extraorçamentário, dentre outras informações de interesse do cidadão.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">2. Quem deve divulgar os dados nas páginas de transparência?</summary>
+        <div class="faq-resposta">
+          Todos os órgão e entidades da Administração Direta e Indireta (Autarquias, Fundações, Empresas Públicas e Sociedades de Economia Mista) do Poder Executivo devem manter, em seus sítios na Internet, Páginas de Transparência Pública, além do Poder Legislativo.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">3. Por que o Portal de Transparência foi criado?</summary>
+        <div class="faq-resposta">
+          Para atender a demanda de informações sobre gestão pública, bem como cumprir as determinações constitucionais, visando à transparência das contas públicas e atendendo à Lei Complementar n° 131, de 27 de maio de 2009, e o Decreto Federal n° 7185, de 27 de maio de 2010, além de promover o acesso amplo e objetivo aos dados da aplicação dos recursos públicos municipais. Através dele, os cidadãos podem acompanhar a gestão das finanças da administração direta e indireta. Assim, é possível acompanhar a destinação dos recursos arrecadados, provenientes em grande parte dos impostos pagos pelos contribuintes.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">4. O que o cidadão pode consultar nesse Portal da Transparência?</summary>
+        <div class="faq-resposta">
+          A consulta dá cumprimento ao disposto na Lei Complementar n.º 131, de 27 de maio de 2009, que trata da divulgação, em tempo real, de informações pormenorizadas sobre a execução orçamentária e financeira dos órgãos públicos. Por meio da pesquisa, é possível detalhar todos os documentos emitidos pelas unidades gestoras dos Poderes Executivo e Legislativo no decorrer da execução das suas despesas, inclusive pela fase em que a despesa está: empenho, liquidação e pagamento.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">5. Quando as informações são atualizadas?</summary>
+        <div class="faq-resposta">
+          A consulta Despesas detalhadas do Portal da Transparência apresenta dados atualizados diariamente. Os dados apresentados correspondem aos documentos emitidos no dia útil anterior.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">6. Qual a origem dos dados dessa consulta?</summary>
+        <div class="faq-resposta">
+          Os dados que alimentam a consulta são fornecidos pelo Serviço de Contabilidade da Entidade Pública e extraídos dos Sistemas Informatizados de Administração Financeira e Controle.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">7. Nesta consulta pode-se identificar quanto foi pago a determinado favorecido/Credor?</summary>
+        <div class="faq-resposta">
+          Nesta consulta, na fase pagamento, são apresentados quanto foi pago a determinado favorecido/Credor, podendo ser feita informando o CPF ou CNPJ do favorecido, dentre outros parâmetros de busca.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">8. Quem pode acessar os dados do Portal da Transparência?</summary>
+        <div class="faq-resposta">
+          Todo cidadão pode consultar os dados do Portal da Transparência. Não há necessidade de senha ou autorização para acessar e utilizar o sistema. O sistema tem acesso amplo e liberado, sem qualquer restrição para consulta.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">9. As informações disponibilizadas recebem alguma forma de filtragem ou tratamento?</summary>
+        <div class="faq-resposta">
+          Não. As informações são disponibilizadas sem qualquer tratamento de dados. Não é feito qualquer controle de limitação ou restrição. São as mesmas informações registradas na contabilidade da Entidade Pública.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">10. Como tirar dúvidas sobre termos, expressões e siglas do governo?</summary>
+        <div class="faq-resposta">
+          Consulte o glossário para saber mais sobre todas as expressões, siglas e termos técnicos utilizados no Portal.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">11. Quais as informações sobre receita que o Portal de Transparência disponibiliza em tempo real?</summary>
+        <div class="faq-resposta">
+          O Portal de Transparência disponibiliza a arrecadação da receita municipal em tempo real, por Unidade Gestora e sua classificação orçamentária.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">12. O que é a Lei de Acesso à Informação?</summary>
+        <div class="faq-resposta">
+          A Lei 12.527/2011, a chamada Lei de Acesso à Informação, obriga órgãos públicos federais, estaduais e municipais (ministérios, estatais, governos estaduais, prefeituras, Câmaras Municipais, empresas públicas, autarquias, RPPS etc.) a oferecer informações relacionadas às suas atividades a qualquer pessoa que solicitar os dados.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">13. Como a lei funcionará na prática?</summary>
+        <div class="faq-resposta">
+          A lei determina que os órgãos públicos criem centros de atendimento dentro de cada órgão chamados de SICs (Serviços de Informação ao Cidadão). Esses centros precisarão ter estrutura para atender e orientar o público quanto ao acesso a informações de interesse coletivo como, por exemplo, tramitação de documentos, processos de licitações e gastos públicos.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">14. O que a lei exige dos órgãos públicos na internet?</summary>
+        <div class="faq-resposta">
+          A Lei de Acesso à Informação estabelece também que as entidades públicas divulguem na internet, em linguagem clara e de fácil acesso, dados sobre a administração pública.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">15. Quem poderá solicitar informações?</summary>
+        <div class="faq-resposta">
+          Qualquer pessoa natural ou jurídica pode pedir dados a respeito de qualquer órgão da administração pública.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">16. É preciso dar razões para o pedido?</summary>
+        <div class="faq-resposta">
+          Não é preciso apresentar nenhum tipo de justificativa para a solicitação de informações.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">17. Quais informações poderão ser solicitadas?</summary>
+        <div class="faq-resposta">
+          Não há limites para as informações a serem solicitadas. Podem ser requisitadas quaisquer informações a respeito de dados relativos aos órgãos públicos (obras públicas, andamento de processos de licitação, contratos, detalhes sobre auditorias, fiscalizações, prestações de contas, execução orçamentária e financeira etc.).
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">18. Há informações que não podem ser fornecidas?</summary>
+        <div class="faq-resposta">
+          Não serão prestadas aos cidadãos informações consideradas sigilosas, tais como assuntos secretos, assim como informações pessoais dos agentes públicos ou privados. Nesses casos, o órgão é obrigado a justificar o motivo para não fornecer o dado.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">19. Por quais meios as informações poderão ser solicitadas?</summary>
+        <div class="faq-resposta">
+          As informações poderão ser solicitadas nos Serviços de Informações ao Cidadão (SICs), instalados em cada órgão público. A lei também determina que seja concedida ao cidadão a opção de solicitar os dados pela internet. Podem ser usados, também, outros meios, tais como carta, e-mail e telefone.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">20. As informações vão ser prestadas sempre por meio de documentos impressos?</summary>
+        <div class="faq-resposta">
+          Depende de como o órgão tiver armazenado os dados. Nos casos de arquivos digitais, o cidadão poderá obter as informações em uma mídia digital. Se houver necessidade de impressão de um volume elevado de papéis, o cidadão pagará o custo.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">21. Como tramita, dentro do órgão público, o pedido de informação?</summary>
+        <div class="faq-resposta">
+          Se o órgão tiver a informação ao alcance imediato, o pedido poderá ser atendido no momento em que for feito nos SICs. Se houver necessidade de pesquisa, o órgão tem 20 dias, prorrogáveis por mais 10, para atender à demanda. O cidadão será avisado por telefone ou pela internet.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">22. ONGs (Organizações Não-Governamentais) também estão sujeitas à lei?</summary>
+        <div class="faq-resposta">
+          As entidades privadas sem fins lucrativos que recebam recursos públicos para a realização de ações de interesse público e que tenham parceria ou convênios com o governo devem divulgar informações sobre o dinheiro recebido e sua destinação.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">23. Qual a importância da Lei de Acesso às Informações?</summary>
+        <div class="faq-resposta">
+          O objetivo da lei é a mudança da cultura do sigilo. A informação sob a guarda do Estado é sempre pública, devendo o acesso a ela ser restringido apenas em casos específicos. O acesso a estes dados fortalece o controle social e consolida a democracia.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">24. Qual a diferença entre transparência ativa e transparência passiva?</summary>
+        <div class="faq-resposta">
+          Na <strong>transparência ativa</strong>, a divulgação das informações ocorre por iniciativa dos órgãos públicos, de forma espontânea no site da internet. Na <strong>transparência passiva</strong>, há o atendimento somente quando a sociedade faz uma solicitação formal (requisição do interessado).
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">25. O que é linguagem cidadã?</summary>
+        <div class="faq-resposta">
+          É uma linguagem acessível que o cidadão comum, que não compreende a linguagem técnica sobre execução orçamentária e financeira, possa compreender facilmente o que está disponibilizado na internet.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">26. O que ocorre se o cidadão solicitar uma informação não existente?</summary>
+        <div class="faq-resposta">
+          A Entidade Pública não é obrigada a produzir uma informação inexistente, devendo apenas disponibilizar os dados que possui.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">Quais informações são disponibilizadas no PNCP?</summary>
+        <div class="faq-resposta">
+          Serão disponibilizadas informações e documentos, no seu inteiro teor, dos seguintes instrumentos: 1) Plano Anual de Contratações (PCA); 2) Editais de licitação e anexos; 3) Avisos e atos de contratação direta; 4) Atas de registro de preços; 5) Contratos e seus termos aditivos.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">O que é o Portal Nacional de Contratações Públicas (PNCP)?</summary>
+        <div class="faq-resposta">
+          Conforme dispõe o art. 174 da Lei nº 14.133/2021, é o sítio eletrônico oficial destinado à divulgação centralizada e obrigatória dos atos exigidos pela Nova Lei de Licitações e Contratos Administrativos.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">Quem está obrigado a elaborar o PCA?</summary>
+        <div class="faq-resposta">
+          O PCA é obrigatório para o ente público conforme a Lei 14.133/2021, devendo ser publicado no PNCP para os municípios com mais de 20 mil habitantes a partir de 31/12/2023, e para os demais municípios após 6 anos da publicação da nova lei.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-pergunta">O que é o Plano de Contratação Anual (PCA)?</summary>
+        <div class="faq-resposta">
+          O Plano de Contratações Anual (PCA) é um documento elaborado pelos órgãos da administração pública direta e indireta para planejar e programar as contratações que serão realizadas ao longo de um ano fiscal.
+        </div>
+      </details>
+
+    </div>
+
+    <!-- Mensagem exibida caso a busca não ache nada -->
+    <p id="semResultado" class="sem-resultado">Nenhuma pergunta encontrada com o termo digitado.</p>
+
+  </main>
+
+  <!-- Script 1: Injeção do Cabeçalho via Fetch -->
+  <script>
+    fetch('/cabecalho.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('cabecalho-container').innerHTML = html;
+      })
+      .catch(err => console.error('Erro ao carregar o cabeçalho:', err));
+  </script>
+
+  <!-- Script 2: Filtro da Busca em Tempo Real -->
+  <script>
+    function filtrarFAQ() {
+      const termo = document.getElementById('inputBusca').value.toLowerCase().trim();
+      const itens = document.querySelectorAll('.faq-item');
+      let encontrou = false;
+
+      itens.forEach(item => {
+        const textoPergunta = item.querySelector('.faq-pergunta').innerText.toLowerCase();
+        const textoResposta = item.querySelector('.faq-resposta').innerText.toLowerCase();
+
+        if (textoPergunta.includes(termo) || textoResposta.includes(termo)) {
+          item.style.display = 'block';
+          encontrou = true;
+          if (termo.length > 2) {
+            item.setAttribute('open', 'true');
+          }
+        } else {
+          item.style.display = 'none';
+          item.removeAttribute('open');
+        }
+      });
+
+      const msgSemResultado = document.getElementById('semResultado');
+      msgSemResultado.style.display = encontrou ? 'none' : 'block';
+    }
+  </script>
+
+</body>
+</html>
