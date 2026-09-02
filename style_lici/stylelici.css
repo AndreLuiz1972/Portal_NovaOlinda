@@ -1,0 +1,55 @@
+ /* Limpa o container */
+selector {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Card Principal */
+selector .licitacao-card {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-left: 5px solid #d1c800 !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  margin-bottom: 16px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+/* Título em Fonte Branca */
+selector .licitacao-num,
+selector .licitacao-card span {
+  color: #2A52BE !important;
+  font-size: 0.95rem !important;
+  font-weight: bold !important;
+  line-height: 1.4 !important;
+  word-break: break-word !important;
+}
+
+/* Badge de Status */
+selector .badge-status {
+  background-color: #28a745 !important;
+  color: #ffffff !important;
+  padding: 4px 10px !important;
+  border-radius: 12px !important;
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  display: inline-block !important;
+  margin-top: 6px !important;
+}
+
+/* Botão em Amarelo */
+selector .btn-pdf {
+  display: block !important;
+  width: 100% !important;
+  background-color: #d1c800 !important;
+  color: #24126a !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  padding: 10px !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  margin-top: 10px !important;
+}

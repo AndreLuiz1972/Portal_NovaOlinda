@@ -1,0 +1,280 @@
+ <style>/* Container dos Cards */
+#lista-licitacoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* Card Institucional Moderno */
+.licitacao-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e1e8ed;
+  border-left: 5px solid #24126a; /* Azul institucional */
+  padding: 18px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+ /.licitacao-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(36, 18, 106, 0.08);
+  border-left-color: #d1c800; /* Amarelo no hover */
+}
+
+/* Cabeçalho do Card */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.licitacao-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.licitacao-title i {
+  color: #24126a;
+  margin-top: 3px;
+}
+
+/* Badges e Tags */
+.card-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.badge-status {
+  background-color: #e6f4ea;
+  color: #137333;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Rodapé do Card com Ações */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+.licitacao-meta {
+  font-size: 0.85rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Botão de Download */
+.btn-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #24126a;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-pdf:hover {
+  background-color: #180b4b;
+  color: #fff;
+}
+
+.btn-pdf i {
+  color: #d1c800; /* Ícone em amarelo */
+}
+
+/* Responsivo para Celulares */
+@media (max-width: 640px) {
+  .card-header {
+    flex-direction: column;
+  }
+  .card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .btn-pdf {
+    width: 100%;
+    justify-content: center;
+  }
+}</style>
+<h1 style="text-align: center; color: blue;">Avisos de Licitação - 2026</h1>
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">CHAMENTO PÚBLICO N.º 2026.06.26.01-CRE</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1_AA5A7WSgiWNDZYFxXRjn5YQeJ2zDOeI/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">EXTRATO DE ADJUDICAÇÃO E HOMOLOGAÇÃO-Nº 2026.06.26.01-CRE</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1AdgZEEM5tnynViHfh9Rb9erguPPzjMzx/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">ATO DE APOSENTADORIA N° 211-2026</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/14EfAZN9qdWx91dRyLpq0g9gqTZd1dd6_/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num"> AVISO DE LICITAÇÃO - PREGÃO ELETRÔNICO N° 2026.06.29.01-PE</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1EfSEVyMdhH1ccbvbJn_WxmWlS1ROQlVc/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">EXTRATO DO TERMO DE APOSTILAMENTO</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1WidGlza-VF5uu_AyBEOepEQ-GvPLqsc2/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">EXTRATO DE CONTRATO - 2025.07.07.01-PE</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1vhsebKMmggyVm7av7cZIexfZpjW1JdrI/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">TERMO DE ADJUDICAÇÃO E HOMOLOGAÇÃO - 03-07-2027</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/11HtnoExE3nS9YuwyDvSsL0SqSLV9Vvj9/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">COMISSÃO PERMANENTE DE LICITAÇÃO - nº 2026.02.05.01-CE</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1F5j92P72ggWIltHDaMQMCszRocXQfes1/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">EXTRATO DE CONTRATO - 29-06-2026</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1c2THMquNjtvu38wp7Kxq5NO-HJz0vP0g/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">AVISO DE LICITAÇÃO PREGÃO ELETRÔNICO N° 2026.01.08.01-PE</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1wEpyuhTI3B4e82iN-W51Eq2lg7KzCoFY/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
+
+<article class="licitacao-card" data-ano="2026">
+  <div class="card-header">
+    <span class="licitacao-num">AVISO DE LICITAÇÃO PREGÃO ELETRÔNICO N° 2026.01.08.02-PE</span>
+    <div>
+      <span class="badge-status">Publicado</span>
+    </div>
+  </div>
+  <div class="pdf-actions">
+    <a href="https://drive.google.com/file/d/1SO2cWwbQ_SaPItNEli2_YJTYbXjUeooZ/view?usp=drivesdk" class="btn-pdf" target="_blank">
+      <i class="fas fa-file-pdf"></i> Visualizar Documento (PDF)
+    </a>
+  </div>
+</article>
