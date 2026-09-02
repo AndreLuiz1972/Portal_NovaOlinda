@@ -1,0 +1,36 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acessando Diário Oficial - Nova Olinda</title>
+</head>
+<body>
+
+  <p style="font-family: Arial, sans-serif; text-align: center; margin-top: 50px; color: #24126a;">
+    Carregando o Diário Oficial da Prefeitura de Nova Olinda...
+  </p>
+
+  <script>
+    window.onload = function() {
+      // 1. Obtém a data atual do computador do usuário (DD/MM/AAAA)
+      const hoje = new Date();
+      const dia = String(hoje.getDate()).padStart(2, '0');
+      const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+      const ano = hoje.getFullYear();
+      
+      const dataHoje = `${dia}/${mes}/${ano}`;
+
+      // 2. Parâmetros aceitos pela APRECE via GET
+      const cnpjNovaOlinda = "07536444000195";
+      
+      // Monta a URL via GET com a entidade e o intervalo de datas do dia
+      const urlAprece = `https://www.diariomunicipal.com.br/aprece/pesquisar?vEMP_CNPJ=${cnpjNovaOlinda}&entidade=${cnpjNovaOlinda}&dtInicio=${dataHoje}&dtFim=${dataHoje}`;
+
+      // 3. Redireciona via GET (evita o erro 405)
+      window.location.href = urlAprece;
+    };
+  </script>
+
+</body>
+</html>
