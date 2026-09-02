@@ -1,0 +1,103 @@
+ /* Reset Básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 30px 15px;
+}
+
+/* 1. CONTAINER EM 2 COLUNAS (CENTRALIZADO) */
+.container-licitacoes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Colunas de mesmo tamanho */
+  gap: 20px;                             /* Espaço entre os cards */
+  width: 100%;
+  max-width: 950px;                      /* Largura máxima centralizada */
+  margin: 0 auto;                        /* Centraliza na tela */
+}
+
+/* 2. CARD DA LICITAÇÃO (Fundo Branco + Borda e Letra Azul) */
+.licitacao-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid #24126a; /* Linha lateral azul */
+  border-radius: 8px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Alinha o botão sempre no final */
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 3. CABEÇALHO */
+.licitacao-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Título em Fonte Azul */
+.licitacao-card .licitacao-num {
+  color: #24126a;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Badge de Status */
+.licitacao-card .badge-status {
+  background-color: #e6f4ea;
+  color: #137333;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* 4. BOTÃO DE PDF (Amarelo) */
+.licitacao-card .pdf-actions {
+  display: flex;
+  margin-top: auto;
+}
+
+.licitacao-card .btn-pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #d1c800; /* Botão Amarelo */
+  color: #24126a;            /* Texto Azul */
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  width: 100%;
+  transition: opacity 0.2s;
+}
+
+.licitacao-card .btn-pdf:hover {
+  opacity: 0.9;
+}
+
+/* 5. RESPONSIVIDADE (Vira 1 coluna no Celular) */
+@media (max-width: 768px) {
+  .container-licitacoes {
+    grid-template-columns: 1fr; /* 1 coluna única no celular */
+  }
+
+  .licitacao-card .card-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
