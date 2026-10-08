@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Matérias e Publicações</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8 font-sans">
+    <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-gray-900 text-white font-bold text-sm">
+                    <th class="p-4">Data do Diário / Matéria</th>
+                    <th class="p-4 text-right">Ações</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for item in materias %}
+                <tr class="hover:bg-gray-50 transition">
+                    <!-- Título clicável que abre o site de destino -->
+                    <td class="p-4">
+                        <a href="{{ item.url_destino }}" target="_blank" rel="noopener noreferrer" class="text-gray-900 font-semibold hover:text-blue-600">
+                            {{ item.titulo }}
+                        </a>
+                    </td>
+                    <!-- Botão de ação direta -->
+                    <td class="p-4 text-right">
+                        <a href="{{ item.url_destino }}" target="_blank" rel="noopener noreferrer" 
+                           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium inline-flex items-center gap-2 transition">
+                            <span>Acessar Matéria</span>
+                            <!-- Ícone de link externo -->
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2" class="p-6 text-center text-gray-500">Nenhuma matéria ou diário cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
