@@ -1,36 +1,743 @@
  <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transparência</title>
-    <style>
-        /* Zera as margens e paddings padrão do navegador */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prefeitura de Nova Olinda - CE</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#007bff',
+            secondary: '#0056b3',
+            background: '#f0f2f5',
+          },
+          fontFamily: {
+            sans: ['Inter', 'Arial', 'sans-serif'],
+          },
         }
+      }
+    }
+  </script>
 
-        /* Garante que o corpo da página ocupe 100% da largura sem espaços */
-        html, body {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
+  <!-- Ícones Externos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
 
-        /* Faz o iframe grudar no topo e nas laterais */
-        .cabecalho-frame {
-            width: 100%;
-            height: 400px;
-            border: none;
-            display: block; /* Remove o pequeno espaço em branco que fica abaixo do iframe */
-        }
-    </style>
+  <style>
+    /* RESET E CONFIGURAÇÕES GERAIS DA PÁGINA */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* --- BARRA AZUL TOPO (LARGURA TOTAL) --- */
+    .top-bar {
+      background-color: #24126a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      font-size: 15px;
+      width: 100%;
+    }
+
+    .top-bar .left-links { display: flex; gap: 25px; flex-basis: 33.33%; }
+
+    .datetime-center {
+      color: #fff;
+      font-weight: bold;
+      text-align: left;
+      flex-basis: 33.33%;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .top-bar .right-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-basis: 33.33%; 
+      justify-content: flex-end;
+    }
+
+    .top-bar a { color: #fff; text-decoration: none; transition: color 0.3s ease; }
+    .top-bar a i { margin-right: 3px; }
+    .top-bar .social-icons { display: flex; gap: 20px; }
+    .top-bar .social-icons a { color: #fff; font-size: 16px; }
+
+    /* --- BANNER (LARGURA TOTAL) --- */
+    .banner-container { position: relative; width: 100%; }
+    .banner-container img.banner { width: 100%; display: block; }
+    .banner-container img.logo-overlay {
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      width: 267px; 
+      height: auto;
+    }
+
+    /* --- MENU AMARELO STICKY (LARGURA TOTAL) --- */
+    nav {
+      background-color: #d1c800;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      position: sticky; 
+      top: 0;           
+      width: 100%;      
+      z-index: 1000;
+    }
+
+    .home-icon { font-size: 22px; margin-right: 15px; color: white; text-decoration: none; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    nav ul li { position: relative; margin: 0 5px; }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      display: block;
+    }
+
+    nav ul li a:hover { background-color: rgba(255,255,255,0.2); border-radius: 5px; }
+
+    /* SUBMENU COM ROLAGEM */
+    nav ul li ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #aea723;
+      display: none;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 380px; 
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-height: 450px;
+      overflow-y: auto; 
+      border-radius: 0 0 5px 5px;
+    }
+
+    nav ul li:hover ul { display: block; }
+    nav ul li ul li { margin: 0; width: 100%; }
+    nav ul li ul li a { padding: 10px; font-weight: normal; }
+    nav ul li ul li a:hover { background-color: rgba(0,0,0,0.1); }
+    nav ul li.dropdown > a::after { content: " ▼"; font-size: 12px; }
+
+    /* --- CAMPO DE PESQUISA --- */
+    .search-li { margin-left: 15px; }
+    .search-container-form {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 2px 12px;
+      border: 1px solid #ccc;
+    }
+    .search-input { border: none; padding: 6px; outline: none; font-size: 14px; width: 140px; transition: width 0.3s; }
+    .search-input:focus { width: 180px; }
+    .search-btn { background: none; border: none; cursor: pointer; color: #24126a; padding: 0; display: flex; align-items: center; }
+
+    .menu-toggle { display: none; font-size: 28px; color: white; cursor: pointer; background: none; border: none; }
+
+    /* --- CONTEÚDO PRINCIPAL (BLOCO ABAIXO DE BLOCO) --- */
+    main.main-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 40px; /* Espaço entre os blocos */
+      flex: 1;
+    }
+
+    /* Container de cada bloco CSS clássico */
+    .container-card {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .container-card.small-container {
+      max-width: 700px;
+    }
+
+    .container-card h1 {
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container-card p.subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    /* Grid de botões */
+    .buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .grid-2-cols {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .button-card {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      min-height: 100px;
+    }
+
+    .button-card:hover {
+      background-color: #0056b3;
+    }
+
+    .button-card .icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 10px;
+      filter: brightness(0) invert(1);
+      flex-shrink: 0;
+    }
+
+    .button-card span {
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 1.3;
+      color: #ffffff;
+    }
+
+    .last-row {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .last-row .button-card {
+      flex: 1 1 250px;
+      max-width: 350px;
+    }
+
+    /* Filtro CSS para ícones do Tailwind */
+    .icon-filter {
+      filter: brightness(0) invert(1) !important;
+    }
+
+    /* --- RODAPÉ (LARGURA TOTAL) --- */
+    footer {
+      background-color: #24126a;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      margin-top: auto;
+      font-size: 14px;
+    }
+
+    /* RESPONSIVIDADE (MOBILE) */
+    @media (max-width: 768px) {
+      .top-bar { 
+        flex-direction: column; 
+        gap: 15px; 
+        padding: 15px 20px;
+        text-align: center;
+      }
+      .datetime-center { display: none; }
+      .top-bar .left-links { flex-basis: auto; width: 100%; justify-content: center; }
+      
+      .top-bar .right-section { 
+        flex-basis: auto; 
+        width: 100%; 
+        flex-direction: column; 
+        gap: 15px; 
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .top-bar .right-section .links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        width: 100%;
+      }
+      
+      .top-bar .social-icons {
+        justify-content: center;
+        width: 100%;
+        margin-top: 5px;
+      }
+
+      .banner-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px;
+      }
+      .banner-container img.banner {
+        display: none; 
+      }
+      .banner-container img.logo-overlay {
+        position: static; 
+        transform: none;  
+        margin: 0 auto;
+        max-width: 85%;   
+        width: 240px;     
+      }
+
+      nav { flex-direction: column; }
+      .menu-toggle { display: block; order: 2; }
+      .home-icon { order: 1; margin-bottom: 10px; }
+      nav ul { order: 3; flex-direction: column; display: none; width: 100%; text-align: center; }
+      nav ul.show { display: flex; }
+      nav ul li ul { position: static; min-width: 100%; max-height: none; overflow: visible; box-shadow: none; }
+      .search-li { margin: 15px 0; }
+      .search-container-form { width: 220px; margin: 0 auto; }
+    }
+  </style>
 </head>
 <body>
 
-    <iframe src="/cabecalho.html" class="cabecalho-frame"></iframe>
+  <!-- CABEÇALHO: TOP BAR -->
+  <div class="top-bar">
+    <div class="left-links">
+      <a href="https://portalmunicipios.com.br/servicos.php?vEMP_CNPJ=07536444000195" target="_blank">
+        <i class="fas fa-chart-bar"></i> Carta de Serviços
+      </a>
+    </div>
+    <div class="datetime-center" id="current-datetime">Carregando data e hora...</div>
+    <div class="right-section">
+      <div class="links">
+        <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=727&vORG_CODIGO=2020&vEMP_CNPJ=07536444000195" target="_blank"><i class="fas fa-headset"></i> Ouvidoria</a>
+        <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=731&vDESTINO=PAGE-ESIC&vEMP_CNPJ=07536444000195&vORG_CODIGO=2020002" target="_blank"><i class="fas fa-headset"></i> e-SIC</a>
+        <a href="https://novaolinda.ce.gov.br/transparencia.html" target="_blank"><i class="fas fa-info-circle"></i> Transparência</a>
+      </div>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/prefeituradenovaolindace/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/@prefeituranovaolinda7440/streams" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://webmail.novaolinda.ce.gov.br/" target="_blank"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CABEÇALHO: BANNER -->
+  <div class="banner-container">
+    <img class="banner" src="https://novaolinda.ce.gov.br/wp-content/uploads/2025/10/Prefeitura-2200-x-500-px-2200-x-150-px-1.png" alt="Banner Prefeitura">
+    <a href="/index.html">
+      <img class="logo-overlay" src="https://novaolinda.ce.gov.br/wp-content/uploads/2025/07/logo-menor.webp" alt="Logo Nova Olinda">
+    </a>
+  </div>
+
+  <!-- CABEÇALHO: MENU PRINCIPAL -->
+  <nav>
+    <button class="menu-toggle"><span class="material-icons">menu</span></button>
+    <a href="/index.html" class="home-icon"><span class="material-icons">home</span></a>
+    
+    <ul>
+      <li class="dropdown">
+        <a href="#">O Município</a>
+        <ul>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/prefeito-e-vice-prefeito/" target="_blank">Prefeito e Vice-Prefeita</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/brasao-hino-e-bandeira/" target="_blank">Brasão, Hino e Bandeira</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/historico/" target="_blank">Histórico</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/perguntas-frequentes/" target="_blank">Perguntas Frequentes</a></li>
+          <li><a href="https://cidades.ibge.gov.br/brasil/ce/nova-olinda/panorama" target="_blank">Dados Institucionais</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/contatos.html" target="_blank">Telefones de Contato</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#">Serviços On-line</a>
+        <ul>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=730&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195" target="_blank">Portal do Contribuinte</a></li>
+          <li><a href="https://gestao.tecnocontas.com.br/webtsg/portalseg_login/?empcnpj=07536444000195" target="_blank">Nota Fiscal Eletrônica</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=735&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195" target="_blank">Impressão de IPTU</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=735&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195">Declaração Fiscal</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=735&vORG_CODIGO=0404&vEMP_CNPJ=07536444000195">Declaração Eletrônica de Serviço</a></li>
+          <li><a href="https://www.diariomunicipal.com.br/aprece/pesquisar" target="_blank">Diário APRECE</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#">Órgãos</a>
+        <ul>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/secretarios/">Secretarias</a></li>
+          <li><a href="https://educacao.novaolinda.ce.gov.br/" target="_blank">Secretaria de Educação</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/unidades-de-saude/">Unidades de Saúde</a></li>
+          <li><a href="https://cultura.novaolinda.ce.gov.br/" target="_blank">Secretaria de Cultura</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/unidades-escolares/">Unidades Escolares</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/primeira-infancia/" target="_blank">Primeira-Infância</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/cadunico/">Cadúnico</a></li>
+          <li><a href="https://novaolindaprev.com.br/" target="_blank">PREVI-Nova Olinda</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="https://novaolinda.ce.gov.br/index.php/transparencia/" target="_blank">LRF/Transparência</a>
+        <ul>
+          <li><a href="https://licitacao.novaolinda.ce.gov.br/" target="_blank">Licitações</a></li>
+          <li><a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=763&vORG_CODIGO=0303&vEMP_CNPJ=07536444000195" target="_blank">PCA-Plano de Contratação Anual</a></li>
+          <li><a href="https://www.sstransparenciamunicipal.net/transparencia/index.html?e=256" target="_blank">Folha de Pagamento</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=95&vEMP_CNPJ=07536444000195" target="_blank">RGF /Relatório de Gestão Fiscal </a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=93&vEMP_CNPJ=07536444000195" target="_blank">LDO /Lei de Diretrizes Orçamentárias </a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=94&vEMP_CNPJ=07536444000195" target="_blank">LOA /Lei de Orçamento Anual</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=96&vEMP_CNPJ=07536444000195" target="_blank">RREO /Relatório Resumido de Execução Orçamentária </a></li>
+          <li><a href="https://novaolinda.ce.gov.br/prgfin-e-cmed/" target="_blank">PRGFIN e CMED</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/receita-orcamentaria-arrecadada/">Receita Arrecadada</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/receitas/">Receitas e Despesas</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/despesas-por-tipo/">Despesas por Tipo</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/cacs-processo.asp?txtPost=1&vEMP_CNPJ=07536444000195" target="_blank">CACS-Fundeb</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&vPCONTAS=1&vEMP_CNPJ=07536444000195" target="_blank">Prestação de Contas</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/convenios/">Convênios</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/informacoes-gerenciais-do-exercicio-2025/">Informações Gerenciais 2025</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?vEMP_CNPJ=07536444000195" target="_blank">Publicações</a>
+        <ul>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?vEMP_CNPJ=07536444000195" target="_blank">Processos e Publicações Legais</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/primeira-infancia/" target="_blank">Publicações Primeira Infância</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=92&vEMP_CNPJ=07536444000195" target="_blank">PPA /Plano Plurianual</a></li>
+          <li><a href="https://www.governotransparente.com.br/acessoinfo/13519490/empenhoportipo?datainfo=MTIwMjUwOTEyMTIyMFBQUA==&clean=true&tipo=5" target="_blank">Diárias - Governo transparente</a></li>
+          <li><a href="https://lookerstudio.google.com/reporting/835894a8-59e1-4087-849a-1f8a9eb01602/page/AF0ZF" target="_blank">Diárias por municípios-TecnoContas</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=89&vEMP_CNPJ=07536444000195" target="_blank">Editais</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=85&vEMP_CNPJ=07536444000195" target="_blank">Decretos</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=86&vEMP_CNPJ=07536444000195" target="_blank">Portarias</a></li>
+          <li><a href="https://portalmunicipios.com.br/sistema/externo/processos/processo-dados.asp?vEMP_CNPJ=07536444000195&vPRC_NUMERO=202509290001" target="_blank">Plano Municipal de Educação</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/index.php/codigo-tributario-2/">Código Tributário</a></li>
+          <li><a href="https://novaolinda.ce.gov.br/wp-content/uploads/2025/10/Lei-organica.pdf" target="_blank">Lei Orgânica</a></li>
+        </ul>
+      </li>
+
+      <li class="search-li">
+        <form role="search" method="get" class="search-container-form" action="https://novaolinda.ce.gov.br/">
+          <input type="search" class="search-input" placeholder="Pesquisar..." name="s" required>
+          <input type="hidden" name="post_type[]" value="post" />
+          <input type="hidden" name="post_type[]" value="page" />
+          <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ÁREA PRINCIPAL COM OS BLOCOS EMPILHADOS VERTICALMENTE -->
+  <main class="main-content">
+
+    <!-- 1º BLOCO: CANAIS DE ATENDIMENTO -->
+    <div class="container-card small-container">
+      <h1>Canais de Atendimento</h1>
+      <p class="subtitle">Lei Nº 12.527 (Acesso à Informação)</p>
+
+      <div class="buttons-grid grid-2-cols">
+        <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=731&vDESTINO=PAGE-ESIC&vEMP_CNPJ=07536444000195&vORG_CODIGO=2020002" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/info.png" alt="Ícone E-SIC" class="icon">
+          <span>E-SIC</span>
+        </a>
+        <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=727&vDESTINO=PAGE-OUVIDORIA&vEMP_CNPJ=07536444000195&vORG_CODIGO=2020" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Ícone Ouvidoria" class="icon">
+          <span>OUVIDORIA</span>
+        </a>
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble.png" alt="Ícone Fale Conosco" class="icon">
+          <span>DIÁRIO OFICIAL DO MUNICÍPIO</span>
+        </a>
+        <a href="https://portalmunicipios.com.br/servicos.php?vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/email.png" alt="Ícone Carta de Serviços" class="icon">
+          <span>CARTA DE SERVIÇOS</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 2º BLOCO: ATOS, PUBLICAÇÕES, PESSOAL, COMPRAS, CONVÊNIOS E PARCERIAS (SEGUNDO BLOCO SOLICITADO) -->
+    <div class="w-full max-w-[1100px] bg-white rounded-lg shadow-md border border-gray-100 flex flex-col items-center">
+      <header class="w-full text-center py-6 px-4 md:py-8 md:px-6 bg-white border-b border-blue-600 rounded-t-lg">
+        <h1 class="text-gray-800 text-2xl md:text-3xl font-extrabold mb-1">
+          Atos, publicações, pessoal, compras, convênios e parcerias
+        </h1>
+        <p class="text-gray-600 text-sm md:text-base font-medium">
+          Lei N° 12.527 (Acesso a Informação)
+        </p>
+      </header>
+
+      <div class="w-full p-4 sm:p-6 lg:p-8">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          
+          <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?vEMP_CNPJ=07536444000195" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none" 
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Leis" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">LEIS</span>
+          </a>
+
+          <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=85&vEMP_CNPJ=07536444000195" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none" 
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Decretos" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">DECRETOS</span>
+          </a>
+
+          <a href="https://www.sstransparenciamunicipal.net/transparencia/index.html?e=256" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none" 
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/user-male.png" alt="Ícone Pessoal" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">PESSOAL</span>
+          </a>
+
+          <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=86&vEMP_CNPJ=07536444000195" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none" 
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Portarias" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">PORTARIAS</span>
+          </a>
+
+          <a href="https://www.governotransparente.com.br/acessoinfo/13519490/empenhoportipo?datainfo=MTIwMjUwOTA5MTYyM1BQUA==&clean=true&tipo=5" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none" 
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/briefcase.png" alt="Ícone Diárias" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">DIÁRIAS</span>
+          </a>
+
+          <a href="https://licitacao.novaolinda.ce.gov.br/" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none"
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Licitações" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">LICITAÇÕES</span>
+          </a>
+
+          <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?vEMP_CNPJ=07536444000195" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none" 
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/briefcase.png" alt="Ícone Publicações" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">PUBLICAÇÕES</span>
+          </a>
+
+          <a href="#" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/briefcase.png" alt="Ícone Contratos" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">CONTRATOS</span>
+          </a>
+
+          <a href="https://novaolinda.ce.gov.br/index.php/convenios/" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/handshake.png" alt="Ícone Convênios" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">CONVÊNIOS</span>
+          </a>
+
+          <a href="https://www.governotransparente.com.br/transparencia/obras/13519490?datainfo=MTIwMjUwOTA5MTYyM1BQUA==&clean=true" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none" 
+             target="_blank">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/building.png" alt="Ícone Obras" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">OBRAS</span>
+          </a>
+
+          <a href="#" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/handshake.png" alt="Ícone Parcerias" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">PARCERIAS</span>
+          </a>
+
+          <a href="#" 
+             class="bg-primary text-white h-24 flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:bg-secondary shadow-md rounded-none">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/heart-with-pulse.png" alt="Ícone COVID-19" class="icon-filter w-7 h-7 mb-1">
+            <span class="font-bold text-xs sm:text-sm text-center tracking-tight text-white">COVID-19</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 3º BLOCO: LEI DE RESPONSABILIDADE FISCAL -->
+    <div class="container-card">
+      <h1>LRF - Lei de Responsabilidade Fiscal e Contas Públicas</h1>
+      <p class="subtitle">Lei complementar Nº 101 (Transparência)</p>
+
+      <div class="buttons-grid">
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=96&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>RREO - Relatório Resumido da Execução Orçamentária</span>
+        </a>
+
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=95&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>RGF - Relatório de Gestão Fiscal</span>
+        </a>
+
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=94&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>LOA - Lei Orçamentária Anual</span>
+        </a>
+
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=93&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>LDO - Lei de Diretrizes Orçamentárias</span>
+        </a>
+
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&txtTipo=92&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>PPA - PLANO PLURIANUAL</span>
+        </a>
+
+        <a href="https://portalmunicipios.com.br/servicos/MenuPrincipal.asp?vMEN_CODIGO=763&vORG_CODIGO=0303&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>PCA - PLANO DE CONTRATAÇÃO ANUAL</span>
+        </a>
+        
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&vPCONTAS=1&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>PCG - PRESTAÇÃO DE CONTAS DE GOVERNO</span>
+        </a>
+        
+        <a href="https://portalmunicipios.com.br/sistema/externo/processos/processo.asp?txtPost=1&vPCONTAS=1&vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>PCS - PRESTAÇÃO DE CONTAS DE GESTÃO</span>
+        </a>
+        
+        <a href="https://novaolinda.ce.gov.br/prgfin-e-cmed/" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Documento" class="icon">
+          <span>PRGFIN E CMED - CRONOGRAMA DE EXECUÇÃO MENSAL</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 4º BLOCO: INSTITUCIONAL -->
+    <div class="container-card">
+      <h1>Institucional</h1>
+      <p class="subtitle">Lei Nº 12.527 (Acesso à Informação)</p>
+
+      <div class="buttons-grid">
+        <a href="https://cidades.ibge.gov.br/brasil/ce/nova-olinda/panorama" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/bank.png" alt="Ícone Dados Institucionais" class="icon">
+          <span>DADOS INSTITUCIONAIS</span>
+        </a>
+        <a href="https://novaolinda.ce.gov.br/index.php/prefeito-e-vice-prefeito/" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/manager.png" alt="Ícone Prefeito e Vice" class="icon">
+          <span>PREFEITO E VICE</span>
+        </a>
+        <a href="https://novaolinda.ce.gov.br/index.php/secretarios/" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/organization.png" alt="Ícone Secretarias" class="icon">
+          <span>SECRETARIAS</span>
+        </a>
+        <a href="https://novaolinda.ce.gov.br/index.php/brasao-hino-e-bandeira/" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/flag.png" alt="Ícone Brasão, Hino e Bandeira" class="icon">
+          <span>BRASÃO, HINO E BANDEIRA</span>
+        </a>
+        <a href="#" class="button-card">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/conference-call.png" alt="Ícone Conselhos e Membros" class="icon">
+          <span>CONSELHOS E MEMBROS</span>
+        </a>
+        <a href="https://novaolinda.ce.gov.br/index.php/perguntas-frequentes/" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/help--v1.png" alt="Ícone Perguntas Frequentes" class="icon">
+          <span>PERGUNTAS FREQUENTES (FAQ)</span>
+        </a>
+        <a href="https://portalmunicipios.com.br/sistema/externo/veiculos/veiculos.asp?vEMP_CNPJ=07536444000195" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/bus.png" alt="Ícone Veículos" class="icon">
+          <span>VEÍCULOS E MÁQUINAS</span>
+        </a>
+        <a href="#" class="button-card">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/map.png" alt="Ícone Mapa do Site" class="icon">
+          <span>MAPA DO SITE</span>
+        </a>
+        <a href="https://www.governotransparente.com.br/dadosabertos/13519490?clean=true" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/code.png" alt="Ícone Dados Abertos" class="icon">
+          <span>DADOS ABERTOS</span>
+        </a> 
+        <a href="https://novaolinda.ce.gov.br/telefones.html" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Ícone Contatos" class="icon">
+          <span>CONTATOS</span>
+        </a>
+        <a href="#" class="button-card">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/checked--v1.png" alt="Ícone Associações" class="icon">
+          <span>ASSOCIAÇÕES</span>
+        </a>
+      </div>
+
+      <div class="last-row">
+        <a href="#" class="button-card">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Ícone Plano Estratégico" class="icon">
+          <span>PLANO ESTRATÉGICO INSTITUCIONAL</span>
+        </a>
+        <a href="https://novaolinda.ce.gov.br/index.php/estrutura-organizacional/" class="button-card" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/organization.png" alt="Ícone Estrutura Organizacional" class="icon">
+          <span>ESTRUTURA ORGANIZACIONAL</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ (LARGURA TOTAL) -->
+  <footer>
+    <p>&copy; Prefeitura Municipal de Nova Olinda - CE. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- SCRIPT PARA O MENU MOBILE E DATA/HORA -->
+  <script>
+    const toggleBtn = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector("nav ul");
+    const datetimeElement = document.getElementById("current-datetime");
+
+    toggleBtn.addEventListener("click", () => {
+      navMenu.classList.toggle("show");
+    });
+
+    function updateDateTime() {
+        const now = new Date();
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        datetimeElement.innerHTML = `${now.toLocaleDateString('pt-BR', dateOptions)}, ${now.toLocaleTimeString('pt-BR', timeOptions)}`;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000); 
+  </script>
 
 </body>
 </html>
